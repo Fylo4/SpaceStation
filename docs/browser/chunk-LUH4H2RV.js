@@ -1,1 +1,0 @@
-import{a as o}from"./chunk-FO5F4I4E.js";import{Db as p,Eb as s,Ub as n,kb as t}from"./chunk-2EQDY6OF.js";var c=class a{routes=o;static \u0275fac=function(e){return new(e||a)};static \u0275cmp=t({type:a,selectors:[["app-spacewalk-page"]],decls:2,vars:0,consts:[[1,"mt-0"]],template:function(e,l){e&1&&(p(0,"h1",0),n(1,"Spacewalk"),s())},encapsulation:2})};export{c as SpacewalkPage};
