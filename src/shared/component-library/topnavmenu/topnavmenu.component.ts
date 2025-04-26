@@ -16,7 +16,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ThemeService } from '../../services/theme.service';
 import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { trigger } from '@angular/animations';
@@ -56,7 +55,6 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class TopnavmenuComponent implements OnInit {
   private router = inject(Router);
-  themeSvc = inject(ThemeService);
 
   middleItems = input<MenuItem[]>([]);
   rightItems = input<MenuItem[]>([]);
