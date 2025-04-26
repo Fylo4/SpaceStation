@@ -1,0 +1,19 @@
+.album-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem 1rem;
+    flex-wrap: wrap;
+
+    img {
+        flex: 1 0 150px;
+        max-width: 300px;
+        aspect-ratio: 1 / 1;
+        align-self: flex-start;
+    }
+
+    p {
+        flex: 1 0 200px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}

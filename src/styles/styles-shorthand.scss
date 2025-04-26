@@ -1,0 +1,133 @@
+.w-100 {
+  width: 100%;
+}
+.w-max {
+  width: max-content;
+}
+.w-min {
+  width: min-content;
+}
+.h-100 {
+  height: 100%;
+}
+.h-max {
+  height: max-content;
+}
+.h-min {
+  height: min-content;
+}
+.flex {
+  display: flex !important;
+}
+.flex-row {
+  display: flex !important;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex !important;
+  flex-direction: column;
+}
+.inline {
+  display: inline;
+}
+.flex-1 {
+  flex: 1 0 0;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.gap-h {
+  gap: 0.25rem 0.25rem;
+}
+.gap-h {
+  gap: 0.5rem 0.5rem;
+}
+.gap-1 {
+  gap: 1rem 1rem;
+}
+.justify-even {
+  justify-content: space-evenly;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-center {
+  justify-content: center;
+}
+.align-center {
+  align-content: center;
+  align-items: center;
+}
+.align-start {
+  align-content: start;
+  align-items: start;
+}
+.bold {
+  font-weight: bold !important;
+}
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+.centered {
+  text-align: center;
+}
+.pointer {
+  cursor: pointer;
+}
+
+@mixin spacing-helper() {
+  $sizes: (
+    '-0': 0,
+    '-q': 0.25rem,
+    '-h': 0.5rem,
+    '-hq': 0.75rem,
+    '': 1rem,
+    '-1': 1rem,
+    '-1h': 1.5rem,
+    '-2': 2rem,
+    '-2h': 2.5rem,
+    '-3': 3rem,
+    '-a': auto,
+  );
+  $sides: (
+    't': '-top',
+    'b': '-bottom',
+    'l': '-left',
+    'r': '-right',
+    '': '',
+  );
+  $classes: (
+    'm': 'margin',
+    'p': 'padding',
+  );
+
+  @each $className, $class in $classes {
+    @each $sideName, $side in $sides {
+      @each $sizeName, $size in $sizes {
+        .#{$className}#{$sideName}#{$sizeName} {
+          #{$class}#{$side}: #{$size} !important;
+        }
+      }
+    }
+  }
+}
+@include spacing-helper();
+
+@media screen {
+  .only-print {
+    display: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+.hide {
+  display: none !important;
+}

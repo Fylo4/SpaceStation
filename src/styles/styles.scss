@@ -1,0 +1,507 @@
+// #region Theme Setup
+@use '@angular/material' as mat;
+@use 'sass:map';
+@use 'sass:color';
+@include mat.core();
+@include mat.elevation-classes();
+
+$site-primary: mat.m2-define-palette(mat.$m2-green-palette);
+$site-accent: mat.m2-define-palette(mat.$m2-light-blue-palette);
+$site-warn: mat.m2-define-palette(mat.$m2-red-palette);
+$light-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $site-primary,
+      accent: $site-accent,
+      warn: $site-warn,
+    ),
+  )
+);
+$dark-theme: mat.m2-define-dark-theme(
+  (
+    color: (
+      primary: $site-primary,
+      accent: $site-accent,
+      warn: $site-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($light-theme);
+.my-dark-theme {
+  @include mat.all-component-colors($dark-theme);
+}
+
+// @include mat.core-theme($light-theme);
+// @include mat.button-theme($light-theme);
+// @include mat.fab-theme($light-theme);
+// @include mat.menu-theme($light-theme);
+// @include mat.checkbox-theme($light-theme);
+// @include mat.form-field-theme($light-theme);
+// @include mat.input-theme($light-theme);
+// @include mat.select-theme($light-theme);
+// @include mat.toolbar-theme($light-theme);
+// @include mat.chips-theme($light-theme);
+// @include mat.slide-toggle-theme($light-theme);
+// @include mat.datepicker-theme($light-theme);
+// @include mat.paginator-theme($light-theme);
+// @include mat.progress-bar-theme($light-theme);
+// @include mat.snack-bar-theme($light-theme);
+
+// .my-dark-theme {
+//   @include mat.button-color($dark-theme);
+//   @include mat.fab-color($dark-theme);
+//   @include mat.menu-color($dark-theme);
+//   @include mat.checkbox-color($dark-theme);
+//   @include mat.form-field-color($dark-theme);
+//   @include mat.input-color($dark-theme);
+//   @include mat.select-color($dark-theme);
+//   @include mat.toolbar-color($dark-theme);
+//   @include mat.chips-color($dark-theme);
+//   @include mat.slide-toggle-color($dark-theme);
+//   @include mat.datepicker-color($dark-theme);
+//   @include mat.paginator-color($dark-theme);
+//   @include mat.progress-bar-color($dark-theme);
+//   @include mat.snack-bar-color($dark-theme);
+// }
+
+// #endregion
+
+// #region Colors
+$lt-background: #f6f6f6;
+$lt-surface: white;
+$lt-surface-border: lightgrey;
+
+$dk-background: #202020;
+$dk-surface: rgb(56, 56, 56);
+$dk-surface-border: rgb(63, 63, 63);
+
+$theme-switch-speed: 500ms;
+
+
+._TNM-navbar {
+  @extend .bg-primary; 
+}
+._TNM-navbar-item {
+  @extend .bg-primary-300;
+}
+
+.base-color,
+.bg-pink {
+  transition:
+    background-color $theme-switch-speed,
+    border-color $theme-switch-speed;
+}
+.surface-border,
+.surface-border-2 {
+  transition:
+    background-color $theme-switch-speed,
+    border-color $theme-switch-speed;
+}
+.slight-red-text {
+  transition: color $theme-switch-speed;
+}
+
+.my-light-theme {
+  .base-color {
+    background-color: color.mix(mat.m2-get-color-from-palette($site-primary, 500), $lt-background, 20%);
+  }
+  .surface-color {
+    background-color: $lt-surface;
+  }
+  .surface-border {
+    border-color: $lt-surface-border;
+  }
+  // For warning bubbles
+  .bg-yellow {
+    background-color: rgb(238, 233, 137);
+  }
+  // For error bubbles
+  .bg-pink {
+    background-color: pink;
+  }
+  // For info bubbles
+  .bg-blue {
+    background-color: rgb(171, 224, 249);
+  }
+  // For success bubbles
+  .bg-green {
+    background-color: rgb(171, 249, 189);
+  }
+  .slight-red-text {
+    color: #a40f28 !important;
+    // Love that Material keeps overriding my styles
+    // I'm gonna end up making my own version of Mat soon at this rate
+    font-weight: 500 !important;
+  }
+}
+.my-dark-theme {
+  color: white;
+  .base-color {
+    background-color: color.mix(mat.m2-get-color-from-palette($site-primary, 500), $dk-background, 20%);
+  }
+  .surface-color {
+    background-color: $dk-surface;
+    color: white;
+  }
+  .surface-border {
+    border-color: $dk-surface-border;
+  }
+  // For warning bubbles
+  .bg-yellow {
+    background-color: rgb(158, 154, 84);
+  }
+  // For error bubbles
+  .bg-pink {
+    background-color: rgb(150, 81, 94);
+  }
+  // For info bubbles
+  .bg-blue {
+    background-color: rgb(89, 126, 143);
+  }
+  // For success bubbles
+  .bg-green {
+    background-color: rgb(91, 143, 89);
+  }
+  .slight-red-text {
+    color: #ffc0cb;
+    font-weight: unset;
+  }
+  hr {
+    border-color: $dk-background;
+    border-bottom-style: solid;
+  }
+  mat-dialog-container {
+    background-color: $dk-surface;
+    color: white;
+  }
+}
+a:link,
+.link {
+  color: lightblue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+a:visited,
+.link.visited {
+  color: rgb(195, 177, 225)
+}
+
+// #endregion
+
+// #region Basic page stuff
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+app-root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+}
+// #endregion
+
+// #region Color Palette Classes
+@mixin palette-mixin($base-set, $color-name) {
+  $steps: (
+    '-50': 50,
+    '-100': 100,
+    '-200': 200,
+    '-300': 300,
+    '-400': 400,
+    '-500': 500,
+    '-600': 600,
+    '-700': 700,
+    '-800': 800,
+    '-900': 900,
+    '': 500,
+  );
+
+  @each $lev-selector, $lev in $steps {
+    .bg-#{$color-name}#{$lev-selector} {
+      background-color: mat.m2-get-color-from-palette($base-set, $lev) !important;
+    }
+    .color-#{$color-name}#{$lev-selector} {
+      color: mat.m2-get-color-from-palette($base-set, $lev) !important;
+    }
+    .border-#{$color-name}#{$lev-selector} {
+      border-color: mat.m2-get-color-from-palette($base-set, $lev) !important;
+      border-width: 1px;
+      border-style: solid;
+    }
+  }
+}
+
+@include palette-mixin($site-primary, 'primary');
+@include palette-mixin($site-accent, 'accent');
+@include palette-mixin($site-warn, 'warn');
+// #endregion
+
+// #region Grayscale Classes
+@mixin grayscale-mixin($color-1, $color-2) {
+  $steps: (
+    '0': 0%,
+    '10': 10%,
+    '20': 20%,
+    '30': 30%,
+    '40': 40%,
+    '50': 50%,
+    '60': 60%,
+    '70': 70%,
+    '80': 80%,
+    '90': 90%,
+    '100': 100%,
+  );
+
+  @each $lev-selector, $lev in $steps {
+    .grayscale-#{$lev-selector} {
+      background-color: color.mix($color-1, $color-2, $lev) !important;
+      transition:
+        background-color $theme-switch-speed,
+        border-color $theme-switch-speed;
+    }
+    // .grayscale-text-#{$lev-selector} {
+    //   color: color.mix($color-1, $color-2, $lev) !important;
+    // }
+    .grayscale-border-#{$lev-selector} {
+      border-color: color.mix($color-1, $color-2, $lev) !important;
+      border-width: 1px;
+      border-style: solid;
+      transition:
+        background-color $theme-switch-speed,
+        border-color $theme-switch-speed;
+    }
+  }
+}
+
+.my-light-theme {
+  @include grayscale-mixin(black, white);
+}
+.my-dark-theme {
+  @include grayscale-mixin(white, $dk-surface);
+}
+// #endregion
+
+// #region Bordered Buttons
+// Make button focus more visible, helps with accessibility
+// Focus is used, instead of just focus-visible, for browser compatability
+// (IE and some others don't support focus-visible)
+button.focus-border:focus {
+  border: 3px solid red;
+}
+button.focus-border[color='warn']:focus {
+  border: 3px solid blue;
+}
+// By default, make an invisible border - prevents buttons from moving around on focus
+button.focus-border:focus:not(:focus-visible),
+button.focus-border:not(:focus) {
+  border: 3px solid rgba(0, 0, 0, 0);
+}
+.focus-border-all-buttons {
+  button {
+    @extend .focus-border;
+  }
+}
+// #endregion
+
+// #region Utilities
+
+mat-form-field.width-unset .mat-mdc-form-field-infix {
+  width: unset !important;
+}
+
+.cant-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+// #endregion
+
+// This page has a lighter theme (orange), so I always want the navbar buttons to be black
+mat-toolbar .mdc-button {
+  color: black !important;
+}
+
+.dialog {
+  padding: 1rem;
+  // min-width: 650px;
+  max-width: 100%;
+  width: 80vw;
+  > :first-child {
+    margin-top: 0;
+  }
+  max-height: 90vh;
+  overflow: auto;
+
+  .bottom-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: end;
+    gap: 1rem 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.round-panel,
+.round-panel-accent {
+  border-radius: 8px;
+  border-width: 2px;
+  padding: 1rem;
+}
+.round-panel {
+  @extend .border-primary;
+}
+.round-panel-accent {
+  @extend .border-accent;
+}
+
+.dark-hover {
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+  }
+}
+
+.contrast-hover {
+  transition: background-color 0.3s;
+}
+.my-light-theme .contrast-hover:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+.my-dark-theme .contrast-hover:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+.mat-calendar-body-label {
+  padding-top: 11px !important;
+  padding-bottom: 11px !important;
+}
+
+.mat-button-toggle-group.constant-spacing .mat-button-toggle:not(.mat-button-toggle-checked) span {
+  padding-left: 27px;
+  padding-right: 27px;
+}
+
+// input:-webkit-autofill {
+//   -webkit-box-shadow: none !important;
+//   box-shadow: none !important;
+// }
+
+// .my-dark-theme {
+//   input:-webkit-autofill {
+//     -webkit-box-shadow: none !important;
+//     box-shadow: none !important;
+//   }
+// }
+
+// Why isn't this working? This makes 0 sense
+// Look in the computed styles.
+input:-internal-autofill-selected {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.my-dark-theme {
+  .prev-days-page-calendar {
+    ._cal-header {
+      background-color: color.mix(mat.m2-get-color-from-palette($site-primary, 700), black, 80%);
+    }
+    .active-day {
+      background-image: linear-gradient(
+        color.mix(mat.m2-get-color-from-palette($site-accent, 800), black, 90%),
+        color.mix(mat.m2-get-color-from-palette($site-accent, 900), black, 90%)
+      );
+    }
+  }
+}
+.my-light-theme {
+  .prev-days-page-calendar {
+    ._cal-header {
+      @extend .bg-primary-400;
+    }
+  }
+  .active-day {
+    background-image: linear-gradient(
+      mat.m2-get-color-from-palette($site-accent, 100),
+      mat.m2-get-color-from-palette($site-accent, 200)
+    );
+  }
+}
+
+.my-light-theme {
+  ._TNM-submenu {
+    background-color: white;
+    color: black;
+  }
+  ._TNM-submenu-item {
+    &.selected,
+    &:hover {
+      background-color: rgb(175, 175, 175);
+    }
+  }
+}
+.my-dark-theme {
+  ._TNM-submenu {
+    @extend .grayscale-20;
+    color: white;
+  }
+  ._TNM-submenu-item {
+    &.selected,
+    &:hover {
+      background-color: rgb(63, 63, 63);
+    }
+  }
+}
+
+.my-light-theme {
+  .link-card {
+    transition: background-color 500ms;
+    background-color: color.mix(mat.m2-get-color-from-palette($site-accent, 500), $dk-background, 100%);
+    &:hover,
+    &:focus {
+      background-color: color.mix(mat.m2-get-color-from-palette($site-accent, 500), $dk-background, 70%);
+    }
+  }
+}
+.my-dark-theme {
+  .link-card {
+    transition: background-color 500ms;
+    background-color: color.mix(mat.m2-get-color-from-palette($site-accent, 500), $dk-background, 60%);
+    &:hover,
+    &:focus {
+      background-color: color.mix(mat.m2-get-color-from-palette($site-accent, 500), $dk-background, 80%);
+    }
+  }
+}
+
+.article-meta {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem 1rem;
+
+  span {
+    font-style: italic;
+    font-size: 0.8rem;
+  }
+}
+
+.article-title {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

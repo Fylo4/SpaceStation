@@ -1,0 +1,27 @@
+﻿<!-- <app-window-container /> -->
+<div class="main-container">
+  <app-topnavmenu
+    (titleClick)="titleClick()"
+    style="flex: 0 0 64px"
+    [middleItems]="MenuItems"
+    title="Fylo's Website"
+  />
+
+  <div style="flex: 1 0 auto" class="flex-row justify-center bg-space">
+    <div class="center-box">
+      <!-- Breadcrumbs -->
+       @if (bread.paths.length > 1) {
+         <div class="flex-row wrap gap-h">
+           @for (link of bread.paths; track i; let i = $index; let last = $last) {
+             <a (click)="bread.revertToPathIndex(i)" class="link">{{link}}</a>
+             @if (!last) {
+               <span>></span>
+              }
+            }
+          </div>
+        }
+
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

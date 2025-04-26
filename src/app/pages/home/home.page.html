@@ -1,0 +1,60 @@
+<h1 class="centered mb-h mt-0">Welcome to Fylo's Space Station</h1>
+<p class="centered mt-h">Enjoy your stay and come back soon :)</p>
+
+<!-- <div class="w-100">
+    <div class="home-window">
+
+    </div>
+</div> -->
+<div class="flex-row justify-center">
+    <app-metal-panel [class.window-panel]="true">
+        <div class="window-image-container">
+            <img src="/space/herbig-haro.png">
+        </div>
+    </app-metal-panel>
+</div>
+
+<br />
+
+<div class="panel-strip">
+    <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Comms)">
+        <div class="inner-container">
+            <h2>Comms Relay</h2>
+            <p>Chat with other people in the station and see some other sites I like</p>
+        </div>
+    </app-metal-panel>
+    
+    <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Research)">
+        <div class="inner-container">
+            <h2>Research Logs</h2>
+            <p>Read about stuff I think about</p>
+        </div>
+    </app-metal-panel>
+
+    <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Games)">
+        <div class="inner-container">
+            <h2>Game Room</h2>
+            <p>I sometimes program games and make board games or card games</p>
+        </div>
+    </app-metal-panel>
+
+    <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Collections)">
+        <div class="inner-container">
+            <h2>Collections</h2>
+            <p>Lists of stuff I like</p>
+        </div>
+    </app-metal-panel>
+
+    <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Blueprints)">
+        <div class="inner-container">
+            <h2>Blueprints</h2>
+            <p>Tech used to build this station and link to my source code</p>
+        </div>
+    </app-metal-panel>
+
+    <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Spacewalk)">
+        <div class="inner-container">
+            <h2>Space Walk</h2>
+        </div>
+    </app-metal-panel>
+</div>

@@ -1,0 +1,226 @@
+<!-- #region Toolbar -->
+<mat-toolbar class="_TNM-navbar">
+  <!-- LEFT SIDE: Title -->
+  <span
+    class="_TNM-title"
+    (click)="titleClick.emit()"
+    [tabindex]="0"
+    (keyup.enter)="titleClick.emit()"
+    (keyup.space)="titleClick.emit()"
+  >
+    Fylo's Space Station
+  </span>
+
+  <!-- Hamburger menu -->
+  @if (SidePanelMode()) {
+    <button mat-icon-button [GenericMenuTriggerFor]="sidePanelMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
+  <!-- Normal display menu items -->
+  @else {
+    <div class="_TNM-navbar-item-row _TNM-test-wrap">
+      @for (item of middleItemsVisible(); track i; let i = $index) {
+        <ng-container *ngTemplateOutlet="menuItem; context: { item }" />
+      }
+    </div>
+
+    <!-- Right-side Items -->
+    <div class="_TNM-navbar-item-row _TNM-test-wrap">
+      @for (item of rightItemsVisible(); track i; let i = $index) {
+        <ng-container *ngTemplateOutlet="menuItem; context: { item }" />
+      }
+    </div>
+  }
+</mat-toolbar>
+<!-- #endregion -->
+
+<!-- #region Side panel menu -->
+<div GenericMenu #sidePanelMenu="GenericMenu">
+  @if (sidePanelMenu.isOpen()) {
+    <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events,
+                                  @angular-eslint/template/interactive-supports-focus -->
+    <div class="_TNM-side-panel-background" (click)="sidePanelMenu.closeMenu()" @fade></div>
+    <div class="_TNM-side-panel surface-color" @collapseX>
+      <!-- Middle items -->
+      @for (item of middleItemsVisible(); track i; let i = $index) {
+        <ng-container *ngTemplateOutlet="sideMenuItem; context: { item, i }" />
+      }
+      @if (middleItemsVisible().length && rightItemsVisible().length) {
+        <hr style="width: 100%" role="separator" />
+      }
+      <!-- Right side items -->
+      @for (item of rightItemsVisible(); track i; let i = $index) {
+        <ng-container *ngTemplateOutlet="sideMenuItem; context: { item, i: 'r' + i }" />
+      }
+
+      <!-- #region Side menu item display (Includes children) -->
+      <!-- I actually have to include this template here so it knows what menu it's in -->
+      <!-- Very weird, took me a long time to figure out why it wasn't working. Thanks Angular -->
+      <ng-template #sideMenuItem let-item="item" let-index="i">
+        <div
+          GenericMenuItem
+          class="contrast-hover _TNM-side-panel-item"
+          [id]="'_TNM-sidemenu-' + index"
+          (activated)="HandleItemClick(item)"
+          [closeMenuOnKeyboardEvent]="item.Type !== 'Checkbox' && item.Type !== 'Menu'"
+          [closeMenuOnMouseEvent]="item.Type !== 'Checkbox' && item.Type !== 'Menu'"
+        >
+          <ng-container *ngTemplateOutlet="menuItemContents; context: { item, menuArrow: true }" />
+        </div>
+        @if (item.Submenus?.length && item.SubmenuOpen) {
+          <div @collapse class="_TNM-side-panel-subgroup" role="group">
+            @for (subitem of item.Submenus; track i; let i = $index) {
+              <ng-container *ngTemplateOutlet="sideMenuItem; context: { item: subitem, i: index + '-' + i }" />
+            }
+          </div>
+        }
+      </ng-template>
+      <!-- #endregion -->
+    </div>
+  }
+</div>
+
+<!-- #region Menu item contents (reused in several areas) -->
+<ng-template #menuItemContents let-item="item" let-menuArrow="menuArrow">
+  @if (item.Type === 'Checkbox') {
+    <div class="_TNM-item-row">
+      @if (item.Value()) {
+        <mat-icon>check_box</mat-icon>
+      } @else {
+        <mat-icon>check_box_outline_blank</mat-icon>
+      }
+      <span>{{ item.Text }}</span>
+    </div>
+  } @else if (item.Type === 'IconToggle') {
+    <!--  -->
+  } @else if (item.Type === 'Select') {
+    <mat-form-field class="dense-2" (click)="$event.stopPropagation()" style="width: 150px">
+      @if (item.Label) {
+        <mat-label>{{ item.Label }}</mat-label>
+      }
+      <mat-select (selectionChange)="item.Select($event.value)" [value]="item.Value">
+        @for (op of item.Options; track i; let i = $index) {
+          @if (typeof op === 'string') {
+            <mat-option [value]="op">{{ op }}</mat-option>
+          } @else {
+            <mat-option [value]="op.Value">{{ op.Name }}</mat-option>
+          }
+        }
+      </mat-select>
+    </mat-form-field>
+  } @else {
+    <div class="_TNM-item-row">
+      @if (item.Icon) {
+        <mat-icon>{{ item.Icon }}</mat-icon>
+      }
+      @if (item.Text) {
+        <span>{{ item.Text }}</span>
+      }
+      @if (menuArrow === true && item.Type === 'Menu') {
+        <mat-icon [@iconspinner]="item.SubmenuOpen"> arrow_drop_down </mat-icon>
+      }
+    </div>
+  }
+</ng-template>
+<!-- #endregion -->
+
+<!-- #region Menu item in top bar -->
+<ng-template #menuItem let-item="item">
+  @if (item.Type === 'Checkbox' || item.Type === 'IconToggle' || item.Type === 'Select') {
+    <div>
+      <ng-container *ngTemplateOutlet="menuItemContents; context: { item }" />
+    </div>
+  }
+  <!-- We're a button - Icon button or normal button? -->
+  @else if (item.Display === 'Icon') {
+    @if (item.Type === 'Menu') {
+      <div style="position: relative">
+        <button type="button" mat-icon-button [disabled]="item.Disabled | signalValue" [GenericMenuTriggerFor]="submenu">
+          <ng-container *ngTemplateOutlet="menuItemContents; context: { item }" />
+        </button>
+
+        <div GenericMenu #submenu="GenericMenu">
+          @if (submenu.isOpen()) {
+            <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events,
+                                          @angular-eslint/template/interactive-supports-focus -->
+            <div class="_TNM-submenu-background" (click)="submenu.closeMenu()"></div>
+            <div class="_TNM-submenu mat-elevation-z5" @fade>
+              @for (subitem of item.Submenus; track i; let i = $index) {
+                <div
+                  GenericMenuItem
+                  [id]="'_TNM-subitem-' + i"
+                  (activated)="HandleItemClick(subitem)"
+                  class="_TNM-submenu-item"
+                  [closeMenuOnKeyboardEvent]="subitem.Type !== 'Checkbox'"
+                  [closeMenuOnMouseEvent]="subitem.Type !== 'Checkbox'"
+                >
+                  <ng-container *ngTemplateOutlet="menuItemContents; context: { item: subitem }"></ng-container>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    } @else {
+      <button type="button" mat-icon-button [disabled]="item.Disabled | signalValue" (click)="HandleItemClick(item)">
+        <ng-container *ngTemplateOutlet="menuItemContents; context: { item }" />
+      </button>
+    }
+  }
+  <!-- Normal button -->
+  @else {
+    @if (item.Type === 'Menu') {
+    <div style="position: relative" class="h-100">
+      <button type="button" class="_TNM-navbar-item" [disabled]="item.Disabled | signalValue" [GenericMenuTriggerFor]="submenu">
+        <ng-container *ngTemplateOutlet="menuItemContents; context: { item }" />
+      </button>
+
+      <div GenericMenu #submenu="GenericMenu">
+        @if (submenu.isOpen()) {
+          <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events,
+                                        @angular-eslint/template/interactive-supports-focus -->
+          <div class="_TNM-submenu-background" (click)="submenu.closeMenu()"></div>
+          <div class="_TNM-submenu mat-elevation-z5" @fade>
+            @for (subitem of item.Submenus; track i; let i = $index) {
+              <div
+                GenericMenuItem
+                [id]="'_TNM-subitem-' + i"
+                (activated)="HandleItemClick(subitem)"
+                class="_TNM-submenu-item"
+                [closeMenuOnKeyboardEvent]="subitem.Type !== 'Checkbox'"
+                [closeMenuOnMouseEvent]="subitem.Type !== 'Checkbox'"
+              >
+                <ng-container *ngTemplateOutlet="menuItemContents; context: { item: subitem }"></ng-container>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <button type="button" class="_TNM-navbar-item mat-body" [disabled]="item.Disabled | signalValue" (click)="HandleItemClick(item)">
+      <ng-container *ngTemplateOutlet="menuItemContents; context: { item }" />
+    </button>
+  }
+  }
+</ng-template>
+<!-- #endregion -->
+
+<!-- #region Submenu item display (Topnav - Menu clicked) -->
+<ng-template #subMenuItem let-item="item"> </ng-template>
+<!-- #endregion -->
+
+<!-- #region Submenu menu -->
+<ng-template #subMenu let-item="item">
+  <div cdkMenu class="_TNM-submenu mat-elevation-z5" @fade>
+    @if (item.Type === 'Menu') {
+      @for (subitem of item.Submenus; track i; let i = $index) {
+        <div cdkMenuItem (cdkMenuItemTriggered)="HandleItemClick(subitem)" class="_TNM-submenu-item">
+          <ng-container *ngTemplateOutlet="menuItemContents; context: { item: subitem }"></ng-container>
+        </div>
+      }
+    }
+  </div>
+</ng-template>
+<!-- #endregion -->
