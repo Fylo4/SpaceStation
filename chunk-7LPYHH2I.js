@@ -1,1 +1,0 @@
-import{a as n}from"./chunk-FO5F4I4E.js";import{Db as o,Eb as s,Ub as a,kb as m}from"./chunk-2EQDY6OF.js";var i=class t{routes=n;static \u0275fac=function(e){return new(e||t)};static \u0275cmp=m({type:t,selectors:[["app-comms-page"]],decls:2,vars:0,consts:[[1,"mt-0"]],template:function(e,c){e&1&&(o(0,"h1",0),a(1,"Comms Relay"),s())},encapsulation:2})};export{i as CommsPage};
