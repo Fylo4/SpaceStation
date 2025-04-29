@@ -168,7 +168,7 @@ $theme-switch-speed: 500ms;
     font-weight: unset;
   }
   hr {
-    border-color: $dk-background;
+    border-color: white;
     border-bottom-style: solid;
   }
   mat-dialog-container {
@@ -505,3 +505,5 @@ input:-internal-autofill-selected {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

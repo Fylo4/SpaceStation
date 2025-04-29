@@ -1,11 +1,6 @@
 <h1 class="centered mb-h mt-0">Welcome to Fylo's Space Station!</h1>
 <p class="centered mt-h">Enjoy your stay and come back soon :)</p>
 
-<!-- <div class="w-100">
-    <div class="home-window">
-
-    </div>
-</div> -->
 <div class="flex-row justify-center">
     <app-metal-panel [class.window-panel]="true">
         <div class="window-image-container">
@@ -20,7 +15,7 @@
     <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Comms)">
         <div class="inner-container">
             <h2>Comms Relay</h2>
-            <p>Chat with other people in the station and see some other sites I like</p>
+            <p>Chat with other people in the station</p>
         </div>
     </app-metal-panel>
     
@@ -31,12 +26,12 @@
         </div>
     </app-metal-panel>
 
-    <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Games)">
+    <!-- <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Games)">
         <div class="inner-container">
             <h2>Game Room</h2>
             <p>I sometimes program games and make board games or card games</p>
         </div>
-    </app-metal-panel>
+    </app-metal-panel> -->
 
     <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Collections)">
         <div class="inner-container">
@@ -52,9 +47,9 @@
         </div>
     </app-metal-panel>
 
-    <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Spacewalk)">
+    <!-- <app-metal-panel class="interactive" (click)="bread.navigateAndAdd(routes.Spacewalk)">
         <div class="inner-container">
             <h2>Space Walk</h2>
         </div>
-    </app-metal-panel>
+    </app-metal-panel> -->
 </div>
