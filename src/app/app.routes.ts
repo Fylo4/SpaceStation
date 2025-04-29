@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 export enum RoutePaths {
+  // Main page stuff
   Home = 'home',
   Comms = 'comms',
   Research = 'research',
@@ -9,19 +10,25 @@ export enum RoutePaths {
   Blueprints = 'blueprints',
   Spacewalk = 'spacewalk',
 
+  // Life
   LifeSystems = 'life-systems',
   GoodList = 'good-list',
   MySystem = 'system',
   Beliefs = 'beliefs',
 
+  // Christianity
   ChristCommandment = 'greatest-commandment',
   ChristLgbt = 'christianity-and-lgbt',
   ChristPrayer = 'lords-prayer',
   ChristUnity = 'christianity-and-unity',
   ChristKingdom = 'kingdom-of-heaven',
   
+  // Lists
   QuoteBook = 'quote-book',
   ListAlbums = 'list-albums',
+
+  // Misc
+  Selflessness = 'selflessness',
 }
 
 // Define the routes
@@ -122,6 +129,11 @@ export const routes: Routes = [
     path: RoutePaths.ChristKingdom,
     loadComponent: () => import('./pages/articles/christ-kingdom/christ-kingdom.page').then(m => m.ChristKingdomPage),
     title: 'Kingdom of Heaven'+websiteSuffix,
+  },
+  {
+    path: RoutePaths.Selflessness,
+    loadComponent: () => import('./pages/articles/selflessness/selflessness.page').then(m => m.SelflessnessPage),
+    title: 'Selflessness'+websiteSuffix,
   },
   {
     path: '',
