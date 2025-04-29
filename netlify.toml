@@ -1,6 +1,6 @@
 [build]
     functions = "./netlify/functions"
-    publish = "dist/personal-website"
+    publish = "dist/personal-website/browser"
     command = "ng build"
 [[redirects]]
     from = "/api/*"
