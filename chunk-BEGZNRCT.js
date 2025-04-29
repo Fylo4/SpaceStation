@@ -1,1 +1,0 @@
-import{a as o}from"./chunk-RRQMLQAV.js";import{Db as s,Eb as m,Ub as n,kb as a}from"./chunk-2EQDY6OF.js";var i=class t{routes=o;static \u0275fac=function(e){return new(e||t)};static \u0275cmp=a({type:t,selectors:[["app-games-page"]],decls:2,vars:0,consts:[[1,"mt-0"]],template:function(e,r){e&1&&(s(0,"h1",0),n(1,"Games"),m())},encapsulation:2})};export{i as GamesPage};

@@ -1,1 +1,0 @@
-import{a}from"./chunk-RRQMLQAV.js";import{Db as s,Eb as i,Ub as p,kb as n}from"./chunk-2EQDY6OF.js";var o=class t{routes=a;static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-blueprints-page"]],decls:2,vars:0,consts:[[1,"mt-0"]],template:function(e,l){e&1&&(s(0,"h1",0),p(1,"Blueprints"),i())},encapsulation:2})};export{o as BlueprintsPage};
