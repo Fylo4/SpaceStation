@@ -3,6 +3,6 @@
     publish = "dist/personal-website/browser"
     command = "ng build"
 [[redirects]]
-    from = "/api/*"
-    to = "/.netlify/functions:splat"
+    from = "/*"
+    to = "/index.html"
     status = 200
