@@ -1,0 +1,22 @@
+
+<div style="border: 2px solid white; border-radius: 16px" class="flex-row">
+    <div
+    style="flex: 1 0 0; cursor: pointer;"
+    class="flex-col pl-1 pt-h pb-h"
+    (click)="navigateToArticle(article().slug)"
+    (keyup.space)="navigateToArticle(article().slug)"
+    (keyup.enter)="navigateToArticle(article().slug)"
+    tabindex="0"
+    >
+        <span style="font-size: 1.25rem; font-weight: bold;">{{ article().title }}</span>
+        <span>Last edited: {{article().edited}}</span>
+        @if (article().tags.length) {
+            <span>Tags: {{article().tags | join:', '}}</span>
+        }
+    </div>
+    @if (canEdit()) {
+        <div style="flex: 0 0 100px" class="align-center">
+            <button mat-raised-button color="primary" type="button" (click)="navigateToEditArticle(article().slug)">Edit</button>
+        </div>
+    }
+</div>

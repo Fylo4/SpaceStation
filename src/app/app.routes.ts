@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { ArticleContainerComponent } from './pages/article-container/article-container.component';
+import { ArticleSearchComponent } from './pages/article-search/article-search.component';
 
 export enum RoutePaths {
   // Main page stuff
@@ -46,7 +48,8 @@ export const routes: Routes = [
   },
   {
     path: RoutePaths.Research,
-    loadComponent: () => import('./pages/research/research.page').then(m => m.ResearchPage),
+    // loadComponent: () => import('./pages/research/research.page').then(m => m.ResearchPage),
+    component: ArticleSearchComponent,
     title: 'Research'+websiteSuffix,
   },
   {
@@ -135,6 +138,16 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/articles/selflessness/selflessness.page').then(m => m.SelflessnessPage),
     title: 'Selflessness'+websiteSuffix,
   },
+  {
+    path: 'article/:slug',
+    component: ArticleContainerComponent,
+    title: 'Article', // TODO Use title service to rename tab to article title
+  },
+  // {
+  //   path: 'article-search',
+  //   component: ArticleSearchComponent,
+  //   title: 'Search Articles',
+  // },
   {
     path: '',
     pathMatch: 'full',

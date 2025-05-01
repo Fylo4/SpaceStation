@@ -1,0 +1,23 @@
+<h1>Research Logs</h1>
+<p>
+    This is basically my <a href="https://maggieappleton.com/garden-history">digital garden</a>
+    of my ideas and whatnot. This garden is still relatively new in 2025. I've been mostly
+    thinking about how I can organize my life better, and about Christianity and religious
+    ideas.
+</p>
+<p>I'm working on making this prettier and easier to use. Bear with me as I construct this system...</p>
+<!-- <p>Sort by: [radio select]</p>
+<p>Search content: [searchbar] [checkbox] Search article contents</p>
+<p>Filters: ...</p> -->
+<div class="flex-col gap-h">
+  @for (article of articles; track i; let i = $index) {
+    <app-article-summary-bar [article]="article" [canEdit]="canEdit" />
+  }
+</div>
+
+  
+@if (canEdit) {
+  <button mat-raised-button color="primary" type="button" (click)="addArticle()" class="mt-1">
+    Add
+  </button>
+}

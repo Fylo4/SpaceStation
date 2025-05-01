@@ -1,0 +1,17 @@
+@if (article() != null) {
+    <h1>{{ article().title }}</h1>
+    <div class="article-meta">
+        <span>{{article().completionStatus}}</span>
+        <span>Written {{article().created}}</span>
+        <span>Edited {{article().edited}}</span>
+        @if (article().tags.length) {
+            <span>Tags: {{article().tags | join}}</span>
+        }
+    </div>
+
+    <div [innerHTML]="article().content"></div>
+    <h2>Backlinks</h2>
+    <p>TODO</p>
+
+    <app-article-comment-area [region]="article().slug" />
+}

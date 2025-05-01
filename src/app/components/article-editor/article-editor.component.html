@@ -1,0 +1,46 @@
+<h1>Edit Article</h1>
+
+<div class="flex-row gap-1 wrap mb-1">
+    <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="article().title" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Slug</mat-label>
+        <input matInput [(ngModel)]="article().slug" />
+    </mat-form-field>
+</div>
+
+<div class="flex-row gap-1 wrap mb-1">
+    <mat-form-field>
+        <mat-label>Epistemic Status</mat-label>
+        <input matInput [(ngModel)]="article().epistemicStatus" />
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Completion Status</mat-label>
+        <mat-select [(ngModel)]="article().completionStatus">
+            @for (status of statuses; track i; let i = $index) {
+                <mat-option [value]="status">{{status}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Tags</mat-label>
+        <mat-select multiple [(ngModel)]="article().tags">
+            @for (tag of tags; track i; let i = $index) {
+                <mat-option [value]="tag">{{tag}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<mat-form-field style="width: 100%;">
+    <mat-label>Content</mat-label>
+    <textarea matInput style="height: 400px;" [(ngModel)]="article().content">
+    </textarea>
+</mat-form-field>
+
+<button mat-raised-button color="primary" type="button" (click)="btnSave()">Save</button>
