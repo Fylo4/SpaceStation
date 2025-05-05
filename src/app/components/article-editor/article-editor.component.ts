@@ -1,29 +1,35 @@
-import { Component, inject, input } from "@angular/core";
-import { Article, articleCompletionStatuses, ArticleService, articleTags } from "../../services/article.service";
+import { Component, input, output } from "@angular/core";
+import { articleCompletionStatuses, articleTags } from "../../services/article.service";
 import { MatInputModule } from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { MatButtonModule } from "@angular/material/button";
-import { DatePipe } from "@angular/common";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { UIArticle } from "../../services/api.types";
 
 @Component({
     selector: 'app-article-editor',
     templateUrl: './article-editor.component.html',
     styleUrl: './article-editor.component.scss',
     standalone: true,
-    imports: [MatInputModule, FormsModule, MatSelectModule, MatButtonModule]
+    imports: [MatInputModule, FormsModule, MatSelectModule, MatButtonModule, MatCheckboxModule]
 })
 export class ArticleEditorComponent {
-    articleSvc = inject(ArticleService);
+    save = output<void>();
 
-    article = input.required<Article>();
+    article = input.required<UIArticle>();
 
     statuses = articleCompletionStatuses;
     tags = articleTags;
 
     btnSave() {
-        const date = new DatePipe('en-US').transform(new Date(), 'shortDate') ?? "";
-        this.article().edited = date;
-        this.articleSvc.downloadAllArticles();
+        console.log('Emitting save')
+        this.save.emit();
+        // if (this.article().id < 0) {
+        //     this.api.postArticle(this.article());
+        // }
+        // else {
+        //     // Edit article endpoint
+        // }
     }
 }

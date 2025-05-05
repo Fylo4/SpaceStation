@@ -9,9 +9,9 @@
     tabindex="0"
     >
         <span style="font-size: 1.25rem; font-weight: bold;">{{ article().title }}</span>
-        <span>Last edited: {{article().edited}}</span>
-        @if (article().tags.length) {
-            <span>Tags: {{article().tags | join:', '}}</span>
+        <span>Last edited: {{article().edited | date:'shortDate'}}</span>
+        @if (article().tags?.length) {
+            <span>Tags: {{article().tags}}</span>
         }
     </div>
     @if (canEdit()) {

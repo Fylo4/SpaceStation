@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { ArticleSummaryBarComponent } from "../../components/article-summary-bar/article-summary-bar.component";
 import { MatButtonModule } from '@angular/material/button';
-import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,25 +16,27 @@ export class ArticleSearchComponent {
   private router = inject(Router);
 
   articles = this.articleSvc.articles;
+  articleStatus = this.articleSvc.articleStatus;
 
   canEdit = false;
 
-  addArticle() {
-    let uniqueSlugId = 1;
-    while (this.articles.find(a => a.slug === 'article-'+uniqueSlugId)) {
-      uniqueSlugId ++;
-    }
-    const mySlug = 'article-'+uniqueSlugId;
-    this.articleSvc.articles.push({
-      slug: mySlug,
-      title: 'Article '+uniqueSlugId,
-      content: '',
-      tags: [],
-      created: new DatePipe('en-US').transform(new Date(), 'shortDate') ?? '',
-      edited: 'N/A',
-      epistemicStatus: '',
-      completionStatus: '',
-    });
-    this.router.navigateByUrl('article/' + mySlug + '?edit=true');
-  }
+  // addArticle() {
+  //   let uniqueSlugId = 1;
+  //   while (this.articles().find(a => a.slug === 'article-'+uniqueSlugId)) {
+  //     uniqueSlugId ++;
+  //   }
+  //   const mySlug = 'article-'+uniqueSlugId;
+  //   this.articleSvc.articles.push({
+  //     id: -1,
+  //     slug: mySlug,
+  //     title: 'Article '+uniqueSlugId,
+  //     articleContent: '',
+  //     tags: '',
+  //     created: new Date(),
+  //     edited: new Date(),
+  //     epistemicStatus: '',
+  //     completionStatus: '',
+  //   });
+  //   this.router.navigateByUrl('article/' + mySlug + '?edit=true');
+  // }
 }

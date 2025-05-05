@@ -1,15 +1,15 @@
 @if (article() != null) {
     <h1>{{ article().title }}</h1>
     <div class="article-meta">
-        <span>{{article().completionStatus}}</span>
-        <span>Written {{article().created}}</span>
-        <span>Edited {{article().edited}}</span>
-        @if (article().tags.length) {
-            <span>Tags: {{article().tags | join}}</span>
+        <span>{{article().completionstatus}}</span>
+        <span>Written {{article().created | date:'short'}}</span>
+        <span>Edited {{article().edited == null ? 'N/A' : article().edited | date:'short'}}</span>
+        @if (article().tags?.length) {
+            <span>Tags: {{article().tags}}</span>
         }
     </div>
 
-    <div [innerHTML]="article().content"></div>
+    <div [innerHTML]="article().articlecontent"></div>
     <!-- <h2>Backlinks</h2>
     <p>TODO</p> -->
 

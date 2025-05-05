@@ -1,0 +1,6 @@
+@if (article) {
+    <app-article-editor [article]="article" (save)="save()" />
+}
+@else {
+    <p>Loading article...</p>
+}

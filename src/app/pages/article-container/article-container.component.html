@@ -1,8 +1,3 @@
 @if (article) {
-    @if (isEditing) {
-        <app-article-editor [article]="article" />
-    }
-    @else if (!isEditing) {
-        <app-article-renderer [article]="article" />
-    }
+    <app-article-renderer [article]="article" />
 }

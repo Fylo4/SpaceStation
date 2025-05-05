@@ -1,15 +1,15 @@
 import { Component, input } from "@angular/core";
-import { Article } from "../../services/article.service";
 import { ArticleCommentAreaComponent } from "../article-comment-area.component";
-import { JoinPipe } from "../../../shared/pipes/join.pipe";
+import { DBArticle, UIArticle } from "../../services/api.types";
+import { DatePipe } from "@angular/common";
 
 @Component({
     selector: 'app-article-renderer',
     templateUrl: './article-renderer.component.html',
     styleUrl: './article-renderer.component.scss',
     standalone: true,
-    imports: [ArticleCommentAreaComponent, JoinPipe]
+    imports: [ArticleCommentAreaComponent, DatePipe]
 })
 export class ArticleRendererComponent {
-    article = input.required<Article >();
+    article = input.required<UIArticle>();
 }

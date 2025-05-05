@@ -1,4 +1,4 @@
-<h1>Research Logs</h1>
+<h1 class="mt-h mb-0">Bio-Dome</h1>
 <p>
     This is basically my <a href="https://maggieappleton.com/garden-history">digital garden</a>
     of my ideas and whatnot. This garden is still relatively new in 2025. I've been mostly
@@ -9,15 +9,16 @@
 <!-- <p>Sort by: [radio select]</p>
 <p>Search content: [searchbar] [checkbox] Search article contents</p>
 <p>Filters: ...</p> -->
+
+@if (articleStatus() === 'loading') {
+  <p>Loading articles...</p>
+}
+@if (articleStatus() === 'error') {
+  <p>An error occurred while loading articles. Refresh the page to try again.</p>
+}
+
 <div class="flex-col gap-h">
-  @for (article of articles; track i; let i = $index) {
+  @for (article of articles(); track i; let i = $index) {
     <app-article-summary-bar [article]="article" [canEdit]="canEdit" />
   }
 </div>
-
-  
-@if (canEdit) {
-  <button mat-raised-button color="primary" type="button" (click)="addArticle()" class="mt-1">
-    Add
-  </button>
-}

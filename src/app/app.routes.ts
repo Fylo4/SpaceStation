@@ -6,31 +6,17 @@ export enum RoutePaths {
   // Main page stuff
   Home = 'home',
   Comms = 'comms',
-  Research = 'research',
+  Research = 'biodome',
+  ArticleNew = 'article-new',
+  ArticleEdit = 'article-edit',
   Games = 'games',
   Collections = 'collections',
   Blueprints = 'blueprints',
   Spacewalk = 'spacewalk',
 
-  // Life
-  LifeSystems = 'life-systems',
-  GoodList = 'good-list',
-  MySystem = 'system',
-  Beliefs = 'beliefs',
-
-  // Christianity
-  ChristCommandment = 'greatest-commandment',
-  ChristLgbt = 'christianity-and-lgbt',
-  ChristPrayer = 'lords-prayer',
-  ChristUnity = 'christianity-and-unity',
-  ChristKingdom = 'kingdom-of-heaven',
-  
   // Lists
   QuoteBook = 'quote-book',
   ListAlbums = 'list-albums',
-
-  // Misc
-  Selflessness = 'selflessness',
 }
 
 // Define the routes
@@ -51,6 +37,16 @@ export const routes: Routes = [
     // loadComponent: () => import('./pages/research/research.page').then(m => m.ResearchPage),
     component: ArticleSearchComponent,
     title: 'Research'+websiteSuffix,
+  },
+  {
+    path: RoutePaths.ArticleNew,
+    loadComponent: () => import('./pages/article-new/article-new.page').then(m => m.ArticleNewPage),
+    title: 'New Article'+websiteSuffix,
+  },
+  {
+    path: RoutePaths.ArticleEdit+'/:slug',
+    loadComponent: () => import('./pages/article-edit/article-edit.page').then(m => m.ArticleEditPage),
+    title: 'Edit Article'+websiteSuffix,
   },
   {
     path: RoutePaths.Games,
@@ -82,61 +78,6 @@ export const routes: Routes = [
     path: RoutePaths.QuoteBook,
     loadComponent: () => import('./pages/articles/quote-book/quote-book.page').then(m => m.QuoteBookPage),
     title: 'Quotes'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.LifeSystems,
-    loadComponent: () => import('./pages/articles/life-systems/life-systems.page').then(m => m.LifeSystemsPage),
-    title: 'Life Systems'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.LifeSystems,
-    loadComponent: () => import('./pages/articles/good-list/good-list.page').then(m => m.GoodListPage),
-    title: 'Good List'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.MySystem,
-    loadComponent: () => import('./pages/articles/my-system/my-system.page').then(m => m.MySystemPage),
-    title: 'My System'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.Beliefs,
-    loadComponent: () => import('./pages/articles/life-beliefs/beliefs.page').then(m => m.BeliefsPage),
-    title: 'Beliefs'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.GoodList,
-    loadComponent: () => import('./pages/articles/good-list/good-list.page').then(m => m.GoodListPage),
-    title: 'Good List'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.ChristCommandment,
-    loadComponent: () => import('./pages/articles/christ-great-commandment/christ-great-commandment.page').then(m => m.ChristGreatCommandmentPage),
-    title: 'The Greatest Commandment'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.ChristLgbt,
-    loadComponent: () => import('./pages/articles/christ-lgbt/christ-lgbt.page').then(m => m.ChristLgbtPage),
-    title: 'LBGTQ+ and Christianity'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.ChristPrayer,
-    loadComponent: () => import('./pages/articles/christ-prayer/christ-prayer.page').then(m => m.ChristPrayerPage),
-    title: 'The Lord\'s Prayer'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.ChristUnity,
-    loadComponent: () => import('./pages/articles/christ-unity/christ-unity.page').then(m => m.ChristUnityPage),
-    title: 'Unity and Christianity'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.ChristKingdom,
-    loadComponent: () => import('./pages/articles/christ-kingdom/christ-kingdom.page').then(m => m.ChristKingdomPage),
-    title: 'Kingdom of Heaven'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.Selflessness,
-    loadComponent: () => import('./pages/articles/selflessness/selflessness.page').then(m => m.SelflessnessPage),
-    title: 'Selflessness'+websiteSuffix,
   },
   {
     path: 'article/:slug',

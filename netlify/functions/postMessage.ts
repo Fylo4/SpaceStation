@@ -39,7 +39,7 @@ const handler: Handler = async(event: HandlerEvent, context: unknown) => {
       } catch (err) {
         return {
             statusCode: 400,
-            body: "An error occurred while getting messages"
+            body: "An error occurred while posting message"
         };
       } finally {
         client.end();

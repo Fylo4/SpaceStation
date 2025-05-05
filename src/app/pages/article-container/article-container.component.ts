@@ -1,30 +1,30 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Article, ArticleService } from '../../services/article.service';
 import { ArticleRendererComponent } from "../../components/article-renderer/article-renderer.component";
-import { ArticleEditorComponent } from "../../components/article-editor/article-editor.component";
+import { APIService } from '../../services/api.service';
+import { UIArticle } from '../../services/api.types';
 
 @Component({
   selector: 'app-article-container',
   templateUrl: './article-container.component.html',
   styleUrl: './article-container.component.scss',
   standalone: true,
-  imports: [ArticleRendererComponent, ArticleEditorComponent],
+  imports: [ArticleRendererComponent],
 })
 export class ArticleContainerComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private articleSvc = inject(ArticleService);
+  private api = inject(APIService);
 
-  article: Article | undefined;
-  isEditing = false;
+  article: UIArticle | undefined;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const slug = params.get('slug');
-      this.article = this.articleSvc.getArticleBySlug(slug);
+      this.api.getArticleBySlug(slug ?? '').subscribe(v => {
+        if (v !== false) {
+          this.article = v;
+        }
+      });
     });
-    this.route.queryParamMap.subscribe(params => {
-      this.isEditing = !!params.get('edit');
-    })
   }
 }
