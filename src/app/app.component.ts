@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, Signal, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +13,9 @@ import { TopnavmenuComponent } from '../shared/component-library/topnavmenu/topn
 import { MenuItem } from '../shared/component-library/topnavmenu/menu-item.type';
 import { RoutePaths } from './app.routes';
 import { BreadcrumbService } from './services/breadcrumb.service';
+import { AuthService } from '@auth0/auth0-angular';
+import { AuthDataService } from './services/auth-data.service';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -33,6 +36,8 @@ import { BreadcrumbService } from './services/breadcrumb.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  private auth = inject(AuthService);
+  private authData = inject(AuthDataService);
   private router = inject(Router);
   bread = inject(BreadcrumbService);
 
@@ -44,6 +49,35 @@ export class AppComponent {
     //   Link: [`/${RoutePaths.Home}`],
     // },
   ];
+  RightItems = computed<MenuItem[]>(() => {
+    if (this.authData.isAuthenticated()) {
+      return [
+        {
+          Type: 'Menu',
+          Text: this.authData.name(),
+          Submenus: [
+            {
+              Type: 'Action',
+              Text: 'Logout',
+              Action: () => {
+                this.auth.logout();
+              }
+            }
+          ]
+        } as MenuItem
+      ];
+    }
+    return [
+      {
+        Type: 'Action',
+        Text: 'Login',
+        Action: () => {
+          this.auth.loginWithRedirect();
+        }
+      }
+    ];
+  }); 
+
 
   titleClick() {
     this.bread.clear();

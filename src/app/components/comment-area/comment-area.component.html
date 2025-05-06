@@ -1,4 +1,4 @@
-<div class="flex-row gap-h wrap">
+<div class="flex-row gap-h wrap mb-h">
     <mat-form-field style="flex: 1 0 200px">
         <mat-label>Username</mat-label>
         <input matInput [(ngModel)]="username" required maxlength="100" #usernameModel="ngModel">
@@ -13,7 +13,7 @@
     </mat-form-field>
 </div>
 
-<mat-form-field style="width: 100%">
+<mat-form-field style="width: 100%" class="mb-h">
     <mat-label>Message</mat-label>
     <textarea matInput [(ngModel)]="message" required maxlength="1000" #messageModel="ngModel"></textarea>
     @if (messageModel.errors?.['required']) {

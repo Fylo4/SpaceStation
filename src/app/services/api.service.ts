@@ -2,13 +2,13 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { catchError, map, Observable, of } from "rxjs";
 import { DBArticle, DBComment, UIArticle } from "./api.types";
-import { DatePipe } from "@angular/common";
 
 @Injectable({
     providedIn: 'root'
 })
 export class APIService {
     private http = inject(HttpClient);
+
     private baseUrl: string;
 
     constructor() {
@@ -60,23 +60,29 @@ export class APIService {
     }
 
     postArticle(article: UIArticle) {
-        return of(false);
-        // const dbArticle = ArticleUI_to_DB(article);
-        // return this.http.post(`${this.baseUrl}/.netlify/functions/postArticle`, dbArticle)
-        // .pipe(catchError(e => {
-        //     console.error(e); // TODO Snackbar
-        //     return of(false) as Observable<false>;
-        // }))
+        const dbArticle = ArticleUI_to_DB(article);
+        return this.http.post(`${this.baseUrl}/.netlify/functions/postArticle`, dbArticle)
+        .pipe(catchError(e => {
+            console.error(e); // TODO Snackbar
+            return of(false) as Observable<false>;
+        }));
     }
 
     updateArticle(article: UIArticle) {
-        return of(false);
-        // const dbArticle = ArticleUI_to_DB(article);
-        // return this.http.put(`${this.baseUrl}/.netlify/functions/updateArticle`, dbArticle)
-        // .pipe(catchError(e => {
-        //     console.error(e); // TODO Snackbar
-        //     return of(false) as Observable<false>;
-        // }))
+        const dbArticle = ArticleUI_to_DB(article);
+        return this.http.put(`${this.baseUrl}/.netlify/functions/updateArticle`, dbArticle)
+        .pipe(catchError(e => {
+            console.error(e); // TODO Snackbar
+            return of(false) as Observable<false>;
+        }));
+    }
+
+    getRoles(): Observable<string[] | false> {
+        return this.http.get<string[]>(`${this.baseUrl}/.netlify/functions/getRoles`)
+        .pipe(catchError(e => {
+            console.error(e); // TODO Snackbar
+            return of(false) as Observable<false>;
+        }));
     }
 }
 

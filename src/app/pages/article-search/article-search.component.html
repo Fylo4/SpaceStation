@@ -19,6 +19,10 @@
 
 <div class="flex-col gap-h">
   @for (article of articles(); track i; let i = $index) {
-    <app-article-summary-bar [article]="article" [canEdit]="canEdit" />
+    <app-article-summary-bar [article]="article" [canEdit]="canEdit()" />
   }
 </div>
+
+@if (canEdit()) {
+  <button mat-raised-button color="primary" type="button" (click)="btnAddArticle()">New Article</button>
+}

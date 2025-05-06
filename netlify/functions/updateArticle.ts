@@ -1,15 +1,29 @@
 import { Handler, HandlerEvent } from "@netlify/functions"
 import { Client } from "pg";
+import { Errors, getRolesOrAddUser, GetUserUID } from "./_FunctionUtils";
 
 const handler: Handler = async(event: HandlerEvent, context: unknown) => {
 
-  return {
-    statusCode: 400,
-    body: "You do not have access to update articles"
-  };
+    let userId, client, roles;
+    try {
+      userId = await GetUserUID(event);
+      if (userId == null) return Errors.MissingAuthorization;
+    
+      client = new Client(process.env["DB_STRING"]);
+      await client.connect();
+    
+      if (userId != null) {
+        roles = await getRolesOrAddUser(userId, client);
+      }
+    } catch (err) {
+      return {
+          statusCode: 400,
+          body: "An unknown error occurred while posting articles"
+      };
+    }
+    
 
-    const client = new Client(process.env["DB_STRING"]);
-    await client.connect();
+    if (!(roles ?? []).includes('dev')) return Errors.ActionRequiresPermissions;
 
     const body = JSON.parse(event.body ?? '{}') as Record<string, string>;
     const id = body['id'];
@@ -22,15 +36,7 @@ const handler: Handler = async(event: HandlerEvent, context: unknown) => {
     const epistemicStatus = limitSize(body['epistemicstatus'], 200);
     const completionStatus = limitSize(body['completionstatus'], 100);
     const hidden = getBit(body['hidden']) ? 1 : 0;
-
-    console.log(body)
     
-    // if (Number.isNaN(id) || id < 0) {
-    //   return {
-    //       statusCode: 400,
-    //       body: "ID is not a valid value"
-    //   };
-    // }
     if (!slug.trim().length) {
       return {
           statusCode: 400,
