@@ -19,7 +19,8 @@ const handler: Handler = async(event: HandlerEvent, context: unknown) => {
             epistemicstatus,
             completionstatus
           FROM Article
-          WHERE hidden != B'1'`
+          WHERE hidden != B'1'
+          ORDER BY edited DESC`
         );
     
         var ret = {Articles: results.rows};
