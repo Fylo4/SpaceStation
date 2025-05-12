@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from "@angular/core";
+import { Component, computed, inject, input, OnInit, signal } from "@angular/core";
 import { DatePipe } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -6,18 +6,22 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { APIService } from "../../services/api.service";
 import { DBComment } from "../../services/api.types";
+import { ToHttpsPipe } from "./toHttps.pipe";
 
 @Component({
     selector: 'app-comment-area',
     templateUrl: './comment-area.component.html',
     styleUrl: './comment-area.component.scss',
     standalone: true,
-    imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, DatePipe]
+    imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, DatePipe, ToHttpsPipe]
 })
 export class CommentAreaComponent implements OnInit {
     private api = inject(APIService);
 
     region = input<string>();
+    allowCreate = input<boolean>(true);
+    isNonComms = input<boolean>(false);
+    showCategory = computed(() => this.isNonComms());
 
     username = signal('');
     website = signal('');
@@ -64,7 +68,7 @@ export class CommentAreaComponent implements OnInit {
     private getMessages() {
         this.messageStatus.set('loading');
         const baseUrl = window.location.origin;
-        this.api.getComments(this.region())
+        this.api.getComments(this.region(), this.isNonComms())
         .subscribe(v => {
             if (v !== false) {
                 this.messageStatus.set('success');

@@ -25,10 +25,11 @@ export class APIService {
         }))
     }
 
-    getComments(region?: string) {
-        const params = region?.length ? `?Category=${region}` : ''
+    getComments(region?: string, nonComms: boolean = false) {
+        const params = region?.length ? `?Category=${region}` : '';
+        const functionName = nonComms ? 'getNonCommsMessages' : 'getMessages';
 
-        return this.http.get<{Messages: DBComment[]}>(`${this.baseUrl}/.netlify/functions/getMessages`+params)
+        return this.http.get<{Messages: DBComment[]}>(`${this.baseUrl}/.netlify/functions/${functionName}${params}`)
         .pipe(map(v => {
             return v.Messages.map(m => ({
                 ...m,

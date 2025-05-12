@@ -1,26 +1,28 @@
-<div class="flex-row gap-h wrap mb-h">
-    <mat-form-field style="flex: 1 0 200px">
-        <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="username" required maxlength="100" #usernameModel="ngModel">
-        @if (usernameModel.errors?.['required']) {
+@if (allowCreate()) {
+    <div class="flex-row gap-h wrap mb-h">
+        <mat-form-field style="flex: 1 0 200px">
+            <mat-label>Username</mat-label>
+            <input matInput [(ngModel)]="username" required maxlength="100" #usernameModel="ngModel">
+            @if (usernameModel.errors?.['required']) {
+                <mat-error>Required</mat-error>
+            }
+        </mat-form-field>
+        
+        <mat-form-field style="flex: 1 0 200px">
+            <mat-label>Website (optional)</mat-label>
+            <input matInput [(ngModel)]="website" maxlength="100">
+        </mat-form-field>
+    </div>
+    
+    <mat-form-field style="width: 100%" class="mb-h">
+        <mat-label>Message</mat-label>
+        <textarea matInput [(ngModel)]="message" required maxlength="1000" #messageModel="ngModel"></textarea>
+        @if (messageModel.errors?.['required']) {
             <mat-error>Required</mat-error>
         }
     </mat-form-field>
-
-    <mat-form-field style="flex: 1 0 200px">
-        <mat-label>Website (optional)</mat-label>
-        <input matInput [(ngModel)]="website" maxlength="100">
-    </mat-form-field>
-</div>
-
-<mat-form-field style="width: 100%" class="mb-h">
-    <mat-label>Message</mat-label>
-    <textarea matInput [(ngModel)]="message" required maxlength="1000" #messageModel="ngModel"></textarea>
-    @if (messageModel.errors?.['required']) {
-        <mat-error>Required</mat-error>
-    }
-</mat-form-field>
-<button mat-raised-button color="primary" type="button" (click)="btnAddMessage()">Post</button>
+    <button mat-raised-button color="primary" type="button" (click)="btnAddMessage()">Post</button>
+}
 
 <hr />
 <div class="flex-row gap-1 wrap align-center">
@@ -30,5 +32,17 @@
     }
 </div>
 @for (message of allMessages(); track i; let i = $index) {
-<p>[{{message.username}}] [{{message.website}}] [{{message.createdtime | date:'short'}}] {{message.message}}</p>
+    <div class="round-panel">
+        <div class="flex-row gap-h wrap align-center">
+            <span style="font-size: 1.25rem;">{{message.username}}</span>
+            <span style="font-style: italic; font-size: 0.8rem;">{{message.createdtime | date:'short'}}</span>
+            @if (message.website) {
+                <a [href]="message.website | toHttps" style="font-style: italic; font-size: 0.8rem;">{{message.website}}</a>
+            }
+            @if (showCategory()) {
+                <span style="font-size: 0.8rem;">Article: <a [href]="'article/'+message.category">{{message.category}}</a></span>
+            }
+        </div>
+        <p class="m-0">{{message.message}}</p>
+    </div>
 }

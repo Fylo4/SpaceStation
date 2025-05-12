@@ -13,6 +13,7 @@ export enum RoutePaths {
   Collections = 'collections',
   Blueprints = 'blueprints',
   Spacewalk = 'spacewalk',
+  RecentComments = 'recent-comments',
 
   // Lists
   QuoteBook = 'quote-book',
@@ -31,6 +32,11 @@ export const routes: Routes = [
     path: RoutePaths.Comms,
     loadComponent: () => import('./pages/comms/comms.page').then(m => m.CommsPage),
     title: 'Comms Relay'+websiteSuffix,
+  },
+  {
+    path: RoutePaths.RecentComments,
+    loadComponent: () => import('./pages/recent-comments/recent-comments.page').then(m => m.RecentCommentsPage),
+    title: 'Recent Comments'+websiteSuffix,
   },
   {
     path: RoutePaths.Research,
