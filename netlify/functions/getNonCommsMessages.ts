@@ -9,7 +9,7 @@ const handler: Handler = async(event: HandlerEvent, context: unknown) => {
 
     const category = event.queryStringParameters?.["Category"];
 
-      const query = `SELECT * FROM Comment WHERE Category != 'General' ORDER BY CreatedTime DESC LIMIT (1000)`;
+      const query = `SELECT * FROM Comment WHERE Category != 'Main' ORDER BY CreatedTime DESC LIMIT (1000)`;
 
     // TRY
     try {
