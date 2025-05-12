@@ -10,17 +10,19 @@ export class ArticleService {
 
   articles = signal<UIArticle[]>([]);
   articleStatus = signal<'initial' | 'success' | 'error' | 'loading'>('initial');
+  articleListLastLoaded = signal<Date | null>(null);
 
   constructor() {
     this.loadArticles();
   }
 
-  private loadArticles() {
+  loadArticles() {
     this.articleStatus.set('loading');
     this.api.getArticleList().subscribe(v => {
       if (v !== false) {
         this.articles.set(v);
         this.articleStatus.set('success');
+        this.articleListLastLoaded.set(new Date());
       }
       else {
         this.articleStatus.set('error');

@@ -4,6 +4,7 @@ import { ArticleSummaryBarComponent } from "../../components/article-summary-bar
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { AuthDataService } from '../../services/auth-data.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-article-search',
@@ -17,12 +18,22 @@ export class ArticleSearchComponent {
   private router = inject(Router);
   private authData = inject(AuthDataService);
 
+  lastLoaded: Date | null = null;
   articles = this.articleSvc.articles;
   articleStatus = this.articleSvc.articleStatus;
 
+  private dp = new DatePipe('en-US');
+  lastLoadedText = computed(() => {
+    const ll = this.articleSvc.articleListLastLoaded();
+    if (ll == null) return 'never';
+    return this.dp.transform(ll, 'shortTime') ?? "never";
+  })
   canEdit = computed(() => this.authData.roles().includes('dev'));
 
   btnAddArticle() {
     this.router.navigateByUrl('article-new')
+  }
+  btnReloadArticleList() {
+    this.articleSvc.loadArticles();
   }
 }

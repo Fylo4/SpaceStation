@@ -1,20 +1,12 @@
 import { Handler, HandlerEvent } from "@netlify/functions"
 import { Client } from "pg";
-import { Errors, getRolesOrAddUser, GetUserUID } from "./_FunctionUtils";
+import { Errors, getRolesOrAddUser, GetUserUID, initializeFunctionVariables } from "./_FunctionUtils";
 
 const handler: Handler = async(event: HandlerEvent, context: unknown) => {
 
     let userId, client, roles;
     try {
-      userId = await GetUserUID(event);
-      if (userId == null) return Errors.MissingAuthorization;
-    
-      client = new Client(process.env["DB_STRING"]);
-      await client.connect();
-    
-      if (userId != null) {
-        roles = await getRolesOrAddUser(userId, client);
-      }
+      ({userId, roles, client} = await initializeFunctionVariables(event));
     } catch (err) {
       return {
           statusCode: 400,
@@ -22,7 +14,7 @@ const handler: Handler = async(event: HandlerEvent, context: unknown) => {
       };
     }
     
-
+    if (!userId?.length) return Errors.MissingAuthorization;
     if (!(roles ?? []).includes('dev')) return Errors.ActionRequiresPermissions;
 
     const body = JSON.parse(event.body ?? '{}') as Record<string, string>;

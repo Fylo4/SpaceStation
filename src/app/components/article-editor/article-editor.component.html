@@ -1,4 +1,4 @@
-<h1>Edit Article</h1>
+
 
 <div class="flex-row gap-1 wrap mb-1">
     <mat-form-field>
@@ -45,4 +45,7 @@
     </textarea>
 </mat-form-field>
 
-<button mat-raised-button color="primary" type="button" (click)="btnSave()">Save</button>
+<div class="flex-row gap-h mt-h wrap">
+    <button mat-raised-button color="primary" type="button" (click)="btnSave()">Save</button>
+    <button mat-raised-button color="warn" type="button" (click)="btnDelete()">Delete</button>
+</div>

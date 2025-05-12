@@ -1,5 +1,13 @@
 
-<div style="border: 2px solid white; border-radius: 16px" class="flex-row">
+<div style="border: 2px solid white; border-radius: 16px"class="flex-row"
+    [class.article-hidden]="article().hidden"
+    [class.article-seed]="article().completionstatus === 'seed'"
+    [class.article-draft]="article().completionstatus === 'draft'"
+    [class.article-ip]="article().completionstatus === 'in progress'"
+    [class.article-finished]="article().completionstatus === 'finished'"
+>
+<!-- "seed", "draft", "in progress", "finished" -->
+
     <div
     style="flex: 1 0 0; cursor: pointer;"
     class="flex-col pl-1 pt-h pb-h"
@@ -10,6 +18,7 @@
     >
         <span style="font-size: 1.25rem; font-weight: bold;">{{ article().title }}</span>
         <span>Last edited: {{article().edited | date:'shortDate'}}</span>
+        <span>Status: {{article().completionstatus}}</span>
         @if (article().tags?.length) {
             <span>Tags: {{article().tags}}</span>
         }

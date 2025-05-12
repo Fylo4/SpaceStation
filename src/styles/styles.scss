@@ -493,7 +493,8 @@ input:-internal-autofill-selected {
 .article-meta {
   display: flex;
   flex-direction: row;
-  gap: 1rem 1rem;
+  gap: 0.25rem 1rem;
+  flex-wrap: wrap;
 
   span {
     font-style: italic;

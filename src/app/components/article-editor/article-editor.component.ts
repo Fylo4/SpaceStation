@@ -16,6 +16,7 @@ import { UIArticle } from "../../services/api.types";
 })
 export class ArticleEditorComponent {
     save = output<void>();
+    delete = output<void>();
 
     article = input.required<UIArticle>();
 
@@ -23,13 +24,9 @@ export class ArticleEditorComponent {
     tags = articleTags;
 
     btnSave() {
-        console.log('Emitting save')
         this.save.emit();
-        // if (this.article().id < 0) {
-        //     this.api.postArticle(this.article());
-        // }
-        // else {
-        //     // Edit article endpoint
-        // }
+    }
+    btnDelete() {
+        this.delete.emit();
     }
 }

@@ -3,6 +3,8 @@ import { UIArticle } from "../../services/api.types";
 import { ArticleEditorComponent } from "../../components/article-editor/article-editor.component";
 import { APIService } from "../../services/api.service";
 import { ActivatedRoute } from "@angular/router";
+import { RoutePaths } from "../../app.routes";
+import { BreadcrumbService } from "../../services/breadcrumb.service";
 
 @Component({
     selector: 'app-article-edit-page',
@@ -14,7 +16,9 @@ import { ActivatedRoute } from "@angular/router";
 export class ArticleEditPage implements OnInit{
   private route = inject(ActivatedRoute);
   private api = inject(APIService);
+  private breadcrumb = inject(BreadcrumbService);
 
+  routePaths = RoutePaths;
   article?: UIArticle;
 
   ngOnInit(): void {
@@ -37,4 +41,14 @@ export class ArticleEditPage implements OnInit{
     })
   }
 
+  delete = () => {
+    if (confirm(`Are you sure to delete ${this.article?.title ?? "this article"}?`)) {
+      this.api.deleteArticle(this.article?.id ?? -1).subscribe(v => {
+        if (v !== false) {
+          this.breadcrumb.navigateAndAdd(RoutePaths.Research);
+          // TODO Add snack success
+        }
+      })
+    }
+  }
 }

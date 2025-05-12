@@ -77,6 +77,14 @@ export class APIService {
         }));
     }
 
+    deleteArticle(id: number) {
+        return this.http.delete(`${this.baseUrl}/.netlify/functions/deleteArticle?id=${id}`)
+        .pipe(catchError(e => {
+            console.error(e); // TODO Snackbar
+            return of(false) as Observable<false>;
+        }));
+    }
+
     getRoles(): Observable<string[] | false> {
         return this.http.get<string[]>(`${this.baseUrl}/.netlify/functions/getRoles`)
         .pipe(catchError(e => {

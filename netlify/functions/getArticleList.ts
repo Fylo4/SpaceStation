@@ -1,13 +1,21 @@
 import { Handler, HandlerEvent } from "@netlify/functions"
-import { Client } from "pg";
+import { initializeFunctionVariables } from "./_FunctionUtils";
 
 
 const handler: Handler = async(event: HandlerEvent, context: unknown) => {
 
-    const client = new Client(process.env["DB_STRING"]);
-    await client.connect();
+    let userId, client, roles;
+    try {
+      ({userId, roles, client} = await initializeFunctionVariables(event));
+    } catch (err) {
+      return {
+          statusCode: 400,
+          body: "An unknown error occurred while posting articles"
+      };
+    }
 
     try {
+      const where = roles.includes('dev') ? '' : "WHERE hidden != B'1'";
         const results = await client.query(
           `SELECT
             id,
@@ -17,9 +25,9 @@ const handler: Handler = async(event: HandlerEvent, context: unknown) => {
             created,
             edited,
             epistemicstatus,
-            completionstatus
-          FROM Article
-          WHERE hidden != B'1'
+            completionstatus,
+            hidden
+          FROM Article ${where}
           ORDER BY edited DESC`
         );
     

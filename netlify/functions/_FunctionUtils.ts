@@ -76,3 +76,17 @@ export async function getRolesOrAddUser(uid: string, client: Client): Promise<st
     await client.query("INSERT INTO Users (userid, roles) VALUES ($1, '')", [uid]);
     return [];
 }
+
+export async function initializeFunctionVariables(event: HandlerEvent) {
+    const userId = await GetUserUID(event);
+  
+    const client = new Client(process.env["DB_STRING"]);
+    await client.connect();
+
+    let roles: string[] = [];
+    if (userId != null) {
+        roles = await getRolesOrAddUser(userId, client);
+    }
+
+    return {userId, roles, client};
+}
