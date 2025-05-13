@@ -1,19 +1,88 @@
 <h1 class="mt-h mb-0">Bio-Dome</h1>
 <p>
     This is basically my <a href="https://maggieappleton.com/garden-history">digital garden</a>
-    of my ideas and whatnot. This garden is still relatively new in 2025. I've been mostly
-    thinking about how I can organize my life better, and about Christianity and religious
-    ideas.
+    of my ideas and whatnot. This garden is still relatively new in 2025.
 </p>
-<p>I'm working on making this prettier and easier to use. Bear with me as I construct this system...</p>
 
 <div class="flex-row gap-h align-center wrap mb-1">
   <span><i>Last loaded {{lastLoadedText()}}</i></span>
   <button mat-raised-button color="primary" type="button" (click)="btnReloadArticleList()">Reload</button>
 </div>
-<!-- <p>Sort by: [radio select]</p>
-<p>Search content: [searchbar] [checkbox] Search article contents</p>
-<p>Filters: ...</p> -->
+
+@if (searchPanelOpen()) {
+  <div @collapse>
+    <div class="flex-col gap-h round-panel mb-1">
+      <div class="flex-row align-center gap-1 wrap">
+        <span>Sort by:</span>
+        <mat-radio-group class="flex-row gap-h wrap" [(ngModel)]="sortBy">
+          <div class="border-primary radio-border">
+            <mat-radio-button value="title">Title</mat-radio-button>
+          </div>
+          <div class="border-primary radio-border">
+            <mat-radio-button value="edited">Edited</mat-radio-button>
+          </div>
+          <div class="border-primary radio-border">
+            <mat-radio-button value="status">Status</mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </div>
+
+      <div class="flex-row align-center gap-1 wrap">
+        <span>Sort direction:</span>
+        <mat-radio-group class="flex-row gap-h wrap" [(ngModel)]="sortDir">
+          <div class="border-primary radio-border">
+            <mat-radio-button [value]="1">Ascending</mat-radio-button>
+          </div>
+          <div class="border-primary radio-border">
+            <mat-radio-button [value]="-1">Descending</mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </div>
+
+      <div class="flex-row align-center gap-h wrap">
+        <span>Filter tags:</span>
+        @for (tag of tags; track tag) {
+          <button
+            mat-raised-button
+            [color]="tag === filterTag() ? 'accent' : 'primary'"
+            type="button"
+            class="dense-2"
+            (click)="btnSelectTag(tag)">
+            {{tag}}
+          </button>
+        }
+      </div>
+
+      <div class="flex-row align-center gap-h wrap">
+        <span>Filter status:</span>
+        @for (status of statuses; track status) {
+          <button
+            mat-raised-button
+            [color]="status === filterStatus() ? 'accent' : 'primary'"
+            type="button"
+            class="dense-2"
+            (click)="btnSelectStatus(status)">
+            {{status}}
+          </button>
+        }
+      </div>
+
+      <div class="flex-row align-center gap-h wrap">
+        <mat-form-field class="dense-2">
+          <mat-label>Search Title</mat-label>
+          <input matInput [(ngModel)]="filterTitle" />
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="warn" type="button" style="width: max-content" (click)="btnCloseSearchPanel()">Close</button>
+    </div>
+  </div>
+}
+@else {
+  <div @collapse>
+    <button mat-raised-button color="primary" type="button" style="width: max-content" (click)="btnOpenSearchPanel()" class="mb-1">Search / Filter / Sort</button>
+  </div>
+}
 
 @if (articleStatus() === 'loading') {
   <p>Loading articles...</p>
@@ -23,7 +92,7 @@
 }
 
 <div class="flex-col gap-h">
-  @for (article of articles(); track i; let i = $index) {
+  @for (article of articlesSorted(); track i; let i = $index) {
     <app-article-summary-bar [article]="article" [canEdit]="canEdit()" />
   }
 </div>
