@@ -28,6 +28,7 @@ export class CommentAreaComponent implements OnInit {
     message = signal('');
     allMessages = signal<DBComment[]>([]);
     messageStatus = signal<'loading' | 'error' | 'success' | 'initial'>('initial');
+    lastLoadedTime = signal<Date | null>(null);
     disableButton = signal(false);
 
     ngOnInit() {
@@ -38,6 +39,9 @@ export class CommentAreaComponent implements OnInit {
         if (this.vaidatePostMessage()) {
             this.postMessage();
         }
+    }
+    btnReload() {
+        this.getMessages();
     }
 
     private vaidatePostMessage() {
@@ -73,6 +77,7 @@ export class CommentAreaComponent implements OnInit {
             if (v !== false) {
                 this.messageStatus.set('success');
                 this.allMessages.set(v);
+                this.lastLoadedTime.set(new Date());
             }
             else {
                 this.messageStatus.set('error');

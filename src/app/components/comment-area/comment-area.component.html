@@ -25,10 +25,16 @@
 }
 
 <hr />
-<div class="flex-row gap-1 wrap align-center">
+<div class="flex-row gap-1 wrap align-center mb-h">
     <span><i>Status: {{messageStatus()}}</i></span>
     @if (messageStatus() === 'success') {
         <span><i>Messages: {{allMessages().length}}</i></span>
+    }
+    @if (lastLoadedTime() != null) {
+        <span><i>Last Loaded: {{lastLoadedTime() | date:'shortTime'}}</i></span>
+    }
+    @if (messageStatus() != 'loading') {
+        <button mat-raised-button color="primary" type="button" class="dense-1" (click)="btnReload()">Reload</button>
     }
 </div>
 @for (message of allMessages(); track i; let i = $index) {
