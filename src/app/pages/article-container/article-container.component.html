@@ -1,3 +1,6 @@
 @if (article) {
-    <app-article-renderer [article]="article" />
+    <app-article-renderer [article]="article" [canEdit]="canEdit()" />
+}
+@else {
+    <p>Loading article...</p>
 }

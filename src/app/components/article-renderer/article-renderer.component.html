@@ -1,11 +1,17 @@
 @if (article() != null) {
-    <h1>{{ article().title }}</h1>
+    <h1 class="article-title">{{ article().title }}</h1>
     <div class="article-meta">
         <span>{{article().completionstatus}}</span>
         <span>Written {{article().created | date:'short'}}</span>
         <span>Edited {{article().edited == null ? 'N/A' : article().edited | date:'short'}}</span>
         @if (article().tags?.length) {
             <span>Tags: {{article().tags}}</span>
+        }
+    </div>
+    <div class="flex-row gap-1 wrap">
+        <a [href]="routes.Research">Return to Bio-dome</a>
+        @if (canEdit()) {
+            <a [href]="routes.ArticleEdit+'/'+article().slug">Edit Article</a>
         }
     </div>
 

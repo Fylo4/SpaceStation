@@ -1,5 +1,8 @@
 <h1 class="mt-h mb-h">Edit Article</h1>
-<a [href]="routePaths.Research">Return to Bio-dome</a>
+<div class="flex-row gap-1 wrap">
+    <a [href]="routePaths.Research">Return to Bio-dome</a>
+    <a [href]="'article/'+article?.slug">View Article</a>
+</div>
 <div class="mb-1"></div>
 @if (article) {
     <app-article-editor [article]="article" (save)="save()" (delete)="delete()" />
