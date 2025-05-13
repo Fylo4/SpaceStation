@@ -21,7 +21,7 @@ export enum RoutePaths {
 }
 
 // Define the routes
-const websiteSuffix = ' | Phil\'s Website';
+export const websiteSuffix = ' | Phil\'s Website';
 export const routes: Routes = [
   {
     path: RoutePaths.Home,
@@ -88,7 +88,7 @@ export const routes: Routes = [
   {
     path: 'article/:slug',
     component: ArticleContainerComponent,
-    title: 'Article', // TODO Use title service to rename tab to article title
+    title: 'Article'+websiteSuffix, // TODO Use title service to rename tab to article title
   },
   {
     path: '',

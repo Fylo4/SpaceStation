@@ -4,6 +4,8 @@ import { ArticleRendererComponent } from "../../components/article-renderer/arti
 import { APIService } from '../../services/api.service';
 import { UIArticle } from '../../services/api.types';
 import { AuthDataService } from '../../services/auth-data.service';
+import { Title } from '@angular/platform-browser';
+import { websiteSuffix } from '../../app.routes';
 
 @Component({
   selector: 'app-article-container',
@@ -16,6 +18,7 @@ export class ArticleContainerComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private api = inject(APIService);
   private authData = inject(AuthDataService);
+  private titleSvc = inject(Title);
 
   article: UIArticle | undefined;
 
@@ -27,6 +30,7 @@ export class ArticleContainerComponent implements OnInit {
       this.api.getArticleBySlug(slug ?? '').subscribe(v => {
         if (v !== false) {
           this.article = v;
+          this.titleSvc.setTitle(v.title+websiteSuffix);
         }
       });
     });
