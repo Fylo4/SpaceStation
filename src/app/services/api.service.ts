@@ -2,12 +2,14 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { catchError, map, Observable, of } from "rxjs";
 import { DBArticle, DBComment, UIArticle } from "./api.types";
+import { SnackbarService } from "../../shared/services/snackbar.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class APIService {
     private http = inject(HttpClient);
+    private snack = inject(SnackbarService);
 
     private baseUrl: string;
 
@@ -20,7 +22,7 @@ export class APIService {
             `${this.baseUrl}/.netlify/functions/postMessage`,
             { Username, Website, Message, Category}
         ).pipe(catchError(e => {
-            console.error(e); // TODO Snackbar
+            this.snack.error(e);
             return of(false) as Observable<false>;
         }))
     }
@@ -37,7 +39,7 @@ export class APIService {
             }) as DBComment)
         }))
         .pipe(catchError(e => {
-            console.error(e); // TODO Snackbar
+            this.snack.error(e);
             return of(false) as Observable<false>;
         }))
     }
@@ -46,7 +48,7 @@ export class APIService {
         return this.http.get<DBArticle>(`${this.baseUrl}/.netlify/functions/getArticleBySlug?Slug=${slug}`)
         .pipe(map(ArticleDB_to_UI))
         .pipe(catchError(e => {
-            console.error(e); // TODO Snackbar
+            this.snack.error(e);
             return of(false) as Observable<false>;
         }))
     }
@@ -55,7 +57,7 @@ export class APIService {
         return this.http.get<{Articles: DBArticle[]}>(`${this.baseUrl}/.netlify/functions/getArticleList`)
         .pipe(map(v => v.Articles.map(ArticleDB_to_UI)))
         .pipe(catchError(e => {
-            console.error(e); // TODO Snackbar
+            this.snack.error(e);
             return of(false) as Observable<false>;
         }))
     }
@@ -64,7 +66,7 @@ export class APIService {
         const dbArticle = ArticleUI_to_DB(article);
         return this.http.post(`${this.baseUrl}/.netlify/functions/postArticle`, dbArticle)
         .pipe(catchError(e => {
-            console.error(e); // TODO Snackbar
+            this.snack.error(e);
             return of(false) as Observable<false>;
         }));
     }
@@ -73,7 +75,7 @@ export class APIService {
         const dbArticle = ArticleUI_to_DB(article);
         return this.http.put(`${this.baseUrl}/.netlify/functions/updateArticle`, dbArticle)
         .pipe(catchError(e => {
-            console.error(e); // TODO Snackbar
+            this.snack.error(e);
             return of(false) as Observable<false>;
         }));
     }
@@ -81,7 +83,7 @@ export class APIService {
     deleteArticle(id: number) {
         return this.http.delete(`${this.baseUrl}/.netlify/functions/deleteArticle?id=${id}`)
         .pipe(catchError(e => {
-            console.error(e); // TODO Snackbar
+            this.snack.error(e);
             return of(false) as Observable<false>;
         }));
     }
@@ -89,7 +91,7 @@ export class APIService {
     getRoles(): Observable<string[] | false> {
         return this.http.get<string[]>(`${this.baseUrl}/.netlify/functions/getRoles`)
         .pipe(catchError(e => {
-            console.error(e); // TODO Snackbar
+            this.snack.error(e);
             return of(false) as Observable<false>;
         }));
     }

@@ -90,11 +90,6 @@ export const routes: Routes = [
     component: ArticleContainerComponent,
     title: 'Article', // TODO Use title service to rename tab to article title
   },
-  // {
-  //   path: 'article-search',
-  //   component: ArticleSearchComponent,
-  //   title: 'Search Articles',
-  // },
   {
     path: '',
     pathMatch: 'full',

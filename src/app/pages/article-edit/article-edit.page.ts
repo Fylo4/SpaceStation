@@ -5,6 +5,7 @@ import { APIService } from "../../services/api.service";
 import { ActivatedRoute } from "@angular/router";
 import { RoutePaths } from "../../app.routes";
 import { BreadcrumbService } from "../../services/breadcrumb.service";
+import { SnackbarService } from "../../../shared/services/snackbar.service";
 
 @Component({
     selector: 'app-article-edit-page',
@@ -17,6 +18,7 @@ export class ArticleEditPage implements OnInit{
   private route = inject(ActivatedRoute);
   private api = inject(APIService);
   private breadcrumb = inject(BreadcrumbService);
+  private snack = inject(SnackbarService);
 
   routePaths = RoutePaths;
   article?: UIArticle;
@@ -46,7 +48,7 @@ export class ArticleEditPage implements OnInit{
       this.api.deleteArticle(this.article?.id ?? -1).subscribe(v => {
         if (v !== false) {
           this.breadcrumb.navigateAndAdd(RoutePaths.Research);
-          // TODO Add snack success
+          this.snack.success("Article deleted");
         }
       })
     }

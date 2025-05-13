@@ -2,6 +2,7 @@ import { Component, inject } from "@angular/core";
 import { UIArticle } from "../../services/api.types";
 import { ArticleEditorComponent } from "../../components/article-editor/article-editor.component";
 import { APIService } from "../../services/api.service";
+import { SnackbarService } from "../../../shared/services/snackbar.service";
 
 @Component({
     selector: 'app-article-new-page',
@@ -12,6 +13,7 @@ import { APIService } from "../../services/api.service";
 })
 export class ArticleNewPage {
     private api = inject(APIService);
+    private snack = inject(SnackbarService);
 
     article: UIArticle = {
         id: -1,
@@ -30,8 +32,7 @@ export class ArticleNewPage {
         console.log('Saving article...')
         this.api.postArticle(this.article).subscribe(v => {
             if (v !== false) {
-                // TODO Route to new article
-                console.log('Article created')
+                this.snack.success('Article created')
             }
         })
     }

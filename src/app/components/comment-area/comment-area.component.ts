@@ -7,6 +7,7 @@ import { MatInputModule } from "@angular/material/input";
 import { APIService } from "../../services/api.service";
 import { DBComment } from "../../services/api.types";
 import { ToHttpsPipe } from "./toHttps.pipe";
+import { SnackbarService } from "../../../shared/services/snackbar.service";
 
 @Component({
     selector: 'app-comment-area',
@@ -17,6 +18,7 @@ import { ToHttpsPipe } from "./toHttps.pipe";
 })
 export class CommentAreaComponent implements OnInit {
     private api = inject(APIService);
+    private snack = inject(SnackbarService);
 
     region = input<string>();
     allowCreate = input<boolean>(true);
@@ -91,7 +93,7 @@ export class CommentAreaComponent implements OnInit {
         this.api.postComment(this.username(), this.website(), this.message(), this.region())
         .subscribe(v => {
             if (v !== false) {
-                console.log('Message added'); // TODO Snackbar
+                this.snack.success('Message added');
                 this.disableButton.set(false);
                 this.message.set(''); // Don't clear username / website
                 this.getMessages();
