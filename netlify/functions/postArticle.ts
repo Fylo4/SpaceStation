@@ -18,7 +18,7 @@ exports.handler = async (event: HandlerEvent, context: unknown) => {
   } catch (err) {
     return {
         statusCode: 400,
-        body: "An unknown error occurred while posting articles"
+        body: "An unknown error occurred while posting article"
     };
   }
 

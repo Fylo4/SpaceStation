@@ -38,7 +38,7 @@ export class ArticleEditPage implements OnInit{
     if (!this.article) return;
     this.api.updateArticle(this.article).subscribe(v => {
       if (v !== false) {
-        console.log('Article updated successfully')
+        this.snack.success('Article updated')
       }
     })
   }
