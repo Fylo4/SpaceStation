@@ -32,4 +32,4 @@ export class ArticleService {
 }
 
 export const articleCompletionStatuses = ["seed", "draft", "in progress", "finished"];
-export const articleTags = ["Christianity", "Life Systems", "This Site", "Technology", "Favorites", "Web Development", "Games"];
+export const articleTags = ["Christianity", "Life Systems", "This Site", "Technology", "Favorites", "Web Development", "Games", "Media Notes"];

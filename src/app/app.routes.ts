@@ -9,15 +9,9 @@ export enum RoutePaths {
   Research = 'biodome',
   ArticleNew = 'article-new',
   ArticleEdit = 'article-edit',
-  Games = 'games',
-  Collections = 'collections',
   Blueprints = 'blueprints',
   Spacewalk = 'spacewalk',
   RecentComments = 'recent-comments',
-
-  // Lists
-  QuoteBook = 'quote-book',
-  ListAlbums = 'list-albums',
 }
 
 // Define the routes
@@ -55,16 +49,6 @@ export const routes: Routes = [
     title: 'Edit Article'+websiteSuffix,
   },
   {
-    path: RoutePaths.Games,
-    loadComponent: () => import('./pages/games/games.page').then(m => m.GamesPage),
-    title: 'Games'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.Collections,
-    loadComponent: () => import('./pages/collections/collections.page').then(m => m.CollectionsPage),
-    title: 'Collections'+websiteSuffix,
-  },
-  {
     path: RoutePaths.Blueprints,
     loadComponent: () => import('./pages/blueprints/blueprints.page').then(m => m.BlueprintsPage),
     title: 'Blueprints'+websiteSuffix,
@@ -75,16 +59,6 @@ export const routes: Routes = [
     title: 'Space Walk'+websiteSuffix,
   },
 
-  {
-    path: RoutePaths.ListAlbums,
-    loadComponent: () => import('./pages/articles/list-albums/list-albums.page').then(m => m.ListAlbumsPage),
-    title: 'Albums'+websiteSuffix,
-  },
-  {
-    path: RoutePaths.QuoteBook,
-    loadComponent: () => import('./pages/articles/quote-book/quote-book.page').then(m => m.QuoteBookPage),
-    title: 'Quotes'+websiteSuffix,
-  },
   {
     path: 'article/:slug',
     component: ArticleContainerComponent,
