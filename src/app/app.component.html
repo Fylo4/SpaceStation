@@ -10,19 +10,24 @@
 
   <div style="flex: 1 0 auto" class="flex-row justify-center bg-space">
     <div class="center-box">
-      <!-- Breadcrumbs -->
-       <!-- @if (bread.paths.length > 1) {
-         <div class="flex-row wrap gap-h">
-           @for (link of bread.paths; track i; let i = $index; let last = $last) {
-             <a (click)="bread.revertToPathIndex(i)" class="link">{{link}}</a>
-             @if (!last) {
-               <span>></span>
+      @if (canSeeContent()) {
+        <!-- Breadcrumbs -->
+        <!-- @if (bread.paths.length > 1) {
+          <div class="flex-row wrap gap-h">
+            @for (link of bread.paths; track i; let i = $index; let last = $last) {
+              <a (click)="bread.revertToPathIndex(i)" class="link">{{link}}</a>
+              @if (!last) {
+                <span>></span>
+                }
               }
-            }
-          </div>
-        } -->
+            </div>
+          } -->
 
-      <router-outlet></router-outlet>
+        <router-outlet></router-outlet>
+      }
+      @else {
+        <p>This content is currently unavailable.</p>
+      }
     </div>
   </div>
 </div>

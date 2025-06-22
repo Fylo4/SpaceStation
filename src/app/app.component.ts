@@ -41,6 +41,8 @@ export class AppComponent {
   private router = inject(Router);
   bread = inject(BreadcrumbService);
 
+  canSeeContent = this.authData.canSeeContent;
+
   MenuItems: MenuItem[] = [
     // {
     //   Type: 'Link',

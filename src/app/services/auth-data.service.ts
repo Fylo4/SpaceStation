@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from "@angular/core";
+import { computed, inject, Injectable, signal } from "@angular/core";
 import { AuthService } from "@auth0/auth0-angular";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { APIService } from "./api.service";
@@ -13,6 +13,10 @@ export class AuthDataService {
     isAuthenticated = signal(false);
     name = signal<string | null>(null);
     roles = signal<string[]>([]);
+
+    onlyDevCanSeeContent = true;
+    isDev = computed(() => this.isAuthenticated() && this.roles().includes("dev"));
+    canSeeContent = computed(() => !this.onlyDevCanSeeContent || this.isDev());
 
     constructor() {
         this.auth.isAuthenticated$
