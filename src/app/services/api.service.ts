@@ -95,6 +95,14 @@ export class APIService {
             return of(false) as Observable<false>;
         }));
     }
+
+    getMusicCollection(): Observable<string[] | false> {
+        return this.http.get<string[]>(`${this.baseUrl}/.netlify/functions/getRoles`)
+        .pipe(catchError(e => {
+            this.snack.error(e);
+            return of(false) as Observable<false>;
+        }));
+    }
 }
 
 const ArticleDB_to_UI = (input: DBArticle): UIArticle => {

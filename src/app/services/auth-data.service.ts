@@ -14,7 +14,7 @@ export class AuthDataService {
     name = signal<string | null>(null);
     roles = signal<string[]>([]);
 
-    onlyDevCanSeeContent = true;
+    onlyDevCanSeeContent = false;
     isDev = computed(() => this.isAuthenticated() && this.roles().includes("dev"));
     canSeeContent = computed(() => !this.onlyDevCanSeeContent || this.isDev());
 

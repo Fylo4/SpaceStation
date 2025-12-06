@@ -10,6 +10,7 @@ export enum RoutePaths {
   ArticleNew = 'article-new',
   ArticleEdit = 'article-edit',
   Blueprints = 'blueprints',
+  Arcade = 'arcade',
   Spacewalk = 'spacewalk',
   RecentComments = 'recent-comments',
 }
@@ -57,6 +58,11 @@ export const routes: Routes = [
     path: RoutePaths.Spacewalk,
     loadComponent: () => import('./pages/spacewalk/spacewalk.page').then(m => m.SpacewalkPage),
     title: 'Space Walk'+websiteSuffix,
+  },
+  {
+    path: RoutePaths.Arcade,
+    loadComponent: () => import('./pages/arcade/arcade.page').then(m => m.ArcadePage),
+    title: 'Arcade'+websiteSuffix,
   },
 
   {

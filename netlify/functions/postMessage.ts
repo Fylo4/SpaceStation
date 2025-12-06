@@ -22,7 +22,7 @@ const handler: Handler = async(event: HandlerEvent, context: unknown) => {
     if (!username.trim().length) {
       return {
           statusCode: 400,
-          body: "The message cannot be empty"
+          body: "The username cannot be empty"
       };
     }
 

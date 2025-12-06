@@ -30,3 +30,16 @@ export type UIArticle = {
     completionstatus?: string;
     hidden?: boolean;
 }
+export type DBMusicAlbum = {
+  id: number;
+  title: string;
+  image?: string;
+  description?: string;
+  genre?: string;
+  artist?: string;
+  year?: string;
+  tags?: string;
+  lettergrade?: string;
+  rankOrder?: number;
+  hidden?: boolean;
+}
