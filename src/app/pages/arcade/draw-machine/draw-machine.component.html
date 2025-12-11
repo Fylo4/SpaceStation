@@ -1,0 +1,93 @@
+<h1>Draw Machine</h1>
+<p>
+  Draws cool patterns. There are several rotating arms, and the final arm is holding a pencil. Interval = Delay between simulation
+  steps, in ms. Step multiplier = Simulate multiple steps each step, so you can make it go faster even when interval is 0. Each arm
+  will rotate 'speed' radians per step. The time it takes for it to draw over the same line is related to the least common multiple
+  between the speeds. If you cannot see the machine, un-check and re-check the 'draw machine' button, sometimes it fails to load.
+  Colors can be any CSS color; see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+</p>
+<hr />
+<!-- #region Game speed -->
+<p class="draw-machine-title">Game Speed:</p>
+<label for="interval-input">Interval: </label>
+<input id="interval-input" type="number" [(ngModel)]="interval" style="width: 80px" />
+<br />
+<label for="multiply-input">Step Multiplier: </label>
+<input id="multiply-input" type="number" [(ngModel)]="stepMultiplier" style="width: 80px" />
+<br />
+<hr />
+<!-- #endregion -->
+
+<!-- #region Arms -->
+<p class="draw-machine-title">Arms:</p>
+@for (arm of arms; track i; let i = $index) {
+  <span>{{ i + 1 }}: </span>
+  <label [for]="'length-inp-' + i">Length: </label>
+  <input
+    [id]="'length-inp-' + i"
+    type="number"
+    [(ngModel)]="arm.length"
+    style="width: 80px; margin-right: 20px"
+    (ngModelChange)="onDrawMachineChange()"
+  />
+  <label [for]="'speed-inp-' + i">Speed:</label>
+  <input [id]="'speed-inp-' + i" type="number" [(ngModel)]="arm.speed" style="width: 80px; margin-right: 20px" />
+  <button (click)="btnDeleteArm(i)">Delete</button>
+  <br />
+}
+<button (click)="btnAddArm()">Add Arm</button>
+<!-- #endregion -->
+
+<!-- #region Display -->
+<hr />
+<p class="draw-machine-title">Display:</p>
+<label for="canvas-size-inp">Canvas Size: </label>
+<input id="canvas-size-inp" [(ngModel)]="canvasSize" style="width: 100px" type="number" />
+<br />
+<input type="checkbox" id="draw-machine-cb" [(ngModel)]="doDrawMachine" (ngModelChange)="onDrawMachineChange()" />
+<label for="draw-machine-cb">Draw Machine</label>
+<br />
+<label for="pencil-color-inp">Pencil color: </label>
+<input id="pencil-color-inp" [(ngModel)]="pencilColor" style="width: 150px; margin-right: 20px" />
+<label for="pencil-stroke-inp">Width: </label>
+<input id="pencil-stroke-inp" [(ngModel)]="pencilStroke" style="width: 80px" type="number" />
+<br />
+<label for="machine-color-inp">Machine arm color: </label>
+<input
+  id="machine-color-inp"
+  [(ngModel)]="machineColor"
+  style="width: 150px; margin-right: 20px"
+  (ngModelChange)="onDrawMachineChange()"
+/>
+<label for="machine-stroke-inp">Width: </label>
+<input id="machine-stroke-inp" [(ngModel)]="machineStroke" style="width: 80px" type="number" (ngModelChange)="onDrawMachineChange()" />
+<br />
+<label for="joint-color-inp">Machine joint color: </label>
+<input
+  id="joint-color-inp"
+  [(ngModel)]="machineJointColor"
+  style="width: 150px; margin-right: 20px"
+  (ngModelChange)="onDrawMachineChange()"
+/>
+<label for="joint-stroke-inp">Width: </label>
+<input
+  id="joint-stroke-inp"
+  [(ngModel)]="machineJointStroke"
+  style="width: 80px"
+  type="number"
+  (ngModelChange)="onDrawMachineChange()"
+/>
+<br />
+<label for="bg-color-inp">Background color: </label>
+<input id="bg-color-inp" [(ngModel)]="bgColor" style="width: 150px" />
+<hr />
+<!-- #endregion -->
+
+<button (click)="btnStartSim()">Start</button>
+<button (click)="btnPauseSim()">Pause</button>
+<button (click)="btnResetSim()">Reset</button>
+
+<div [style]="'position: relative; height: ' + canvasSize + 'px; width: ' + canvasSize + 'px; background: ' + bgColor">
+  <canvas #drawCanvas style="position: absolute" [width]="canvasSize" [height]="canvasSize"></canvas>
+  <canvas #machineCanvas style="position: absolute" [width]="canvasSize" [height]="canvasSize"></canvas>
+</div>

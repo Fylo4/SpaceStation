@@ -1,0 +1,31 @@
+<label for="oa-inp">Selection Angle</label>
+<input id="oa-inp" [(ngModel)]="selectionAngle" type="number" style="width: 50px" step="0.05" />
+<br />
+<label for="r-inp">Selection Radius</label>
+<input id="r-inp" [(ngModel)]="selectionRadius" type="number" style="width: 50px" />
+<br />
+
+<div style="position: relative" (click)="testMouseMove($event)">
+  <img src="assets/images/mand.jpg" />
+  <img
+    src="assets/images/mand.jpg"
+    [style.clip-path]="maskPoints()"
+    [style.position]="'absolute'"
+    [style.left]="0"
+    [style.filter]="'brightness(50%)'"
+  />
+</div>
+
+<p>{{ maskPoints() }}</p>
+<div style="position: relative; width: 500px; height: 500px; border: 1px solid black; overflow: hidden">
+  @for (dx of xs; track dx) {
+    @for (dy of ys; track dy) {
+      <img
+        src="assets/images/mand.jpg"
+        [style.clip-path]="maskPoints()"
+        [style.position]="'absolute'"
+        [style]="selectionX() | kalTransform: selectionY() : selectionAngle() : selectionRadius() : renderRadius() : dx : dy : 0"
+      />
+    }
+  }
+</div>

@@ -37,9 +37,9 @@ exports.handler = async (event: HandlerEvent, context: unknown) => {
   // TRY
   try {
       const results = await client.query(`
-        INSERT INTO Article (slug, title, articlecontent, tags, created, edited, epistemicstatus, completionstatus, hidden)
+        INSERT INTO Article (title, articlecontent, tags, created, edited, epistemicstatus, completionstatus, hidden)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-      `, [slug, title, content, tags, created, edited, epistemicStatus, completionStatus, hidden]);
+      `, [title, content, tags, created, edited, epistemicStatus, completionStatus, hidden]);
   
       return {
           statusCode: 200,

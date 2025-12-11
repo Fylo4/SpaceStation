@@ -43,3 +43,8 @@ export type DBMusicAlbum = {
   rankOrder?: number;
   hidden?: boolean;
 }
+
+export type DBImage = {
+    id: number;
+    pngData: string;
+}

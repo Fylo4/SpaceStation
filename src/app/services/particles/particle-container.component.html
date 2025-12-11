@@ -1,0 +1,12 @@
+<!-- <div class="container"> -->
+@for (p of particles; track i; let i = $index) {
+  <div
+    class="particle"
+    [style.top]="p.y + 'px'"
+    [style.left]="p.x + 'px'"
+    [style.width]="p.size + 'px'"
+    [style.height]="p.size + 'px'"
+    [style.background-color]="p.color"
+  ></div>
+}
+<!-- </div> -->

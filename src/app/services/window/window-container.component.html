@@ -1,0 +1,47 @@
+@for (dialog of openWindows; track i; let i = $index) {
+  @if (!dialog.hidden) {
+    <div
+      @fade
+      class="throw-dialog"
+      [style.width.px]="dialog.width"
+      [style.height.px]="dialog.height"
+      [style.top.px]="dialog.y"
+      [style.left.px]="dialog.x"
+    >
+      <!-- Grabby spots -->
+      <div class="grab-top" (mousedown)="startResizing(dialog.id, 'u')"></div>
+      <div class="grab-bottom" (mousedown)="startResizing(dialog.id, 'd')"></div>
+      <div class="grab-left" (mousedown)="startResizing(dialog.id, 'l')"></div>
+      <div class="grab-right" (mousedown)="startResizing(dialog.id, 'r')"></div>
+
+      <div class="grab-tl-top grab-tl" (mousedown)="startResizing(dialog.id, 'ul')"></div>
+      <div class="grab-tl-left grab-tl" (mousedown)="startResizing(dialog.id, 'ul')"></div>
+      <div class="grab-tr-top grab-tr" (mousedown)="startResizing(dialog.id, 'ur')"></div>
+      <div class="grab-tr-right grab-tr" (mousedown)="startResizing(dialog.id, 'ur')"></div>
+      <div class="grab-bl-bottom grab-bl" (mousedown)="startResizing(dialog.id, 'dl')"></div>
+      <div class="grab-bl-left grab-bl" (mousedown)="startResizing(dialog.id, 'dl')"></div>
+      <div class="grab-br-bottom grab-br" (mousedown)="startResizing(dialog.id, 'dr')"></div>
+      <div class="grab-br-right grab-br" (mousedown)="startResizing(dialog.id, 'dr')"></div>
+      <!-- Header -->
+      <div class="throw-dialog-header cant-select" (mousedown)="startDragging(dialog.id)">
+        <span>{{ dialog.title }}</span>
+        <div class="flex-row align-center gap-h">
+          <!-- <div class="throw-dialog-header-button pointer" (click)="btnDialogMinus(dialog.id)">
+            <div class="minus"></div>
+          </div> -->
+          <div
+            class="throw-dialog-header-button pointer"
+            (click)="btnDialogClose(dialog.id)"
+            (keyup.enter)="btnDialogClose(dialog.id)"
+            (keyup.space)="btnDialogClose(dialog.id)"
+            tabindex="0"
+          >
+            <span>X</span>
+          </div>
+        </div>
+      </div>
+      <!-- Content -->
+      <div style="flex: 1 0 0"></div>
+    </div>
+  }
+}

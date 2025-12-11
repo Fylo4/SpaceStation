@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { catchError, map, Observable, of } from "rxjs";
-import { DBArticle, DBComment, UIArticle } from "./api.types";
+import { DBArticle, DBComment, DBImage, UIArticle } from "./api.types";
 import { SnackbarService } from "../../shared/services/snackbar.service";
 
 @Injectable({
@@ -90,6 +90,21 @@ export class APIService {
 
     getRoles(): Observable<string[] | false> {
         return this.http.get<string[]>(`${this.baseUrl}/.netlify/functions/getRoles`)
+        .pipe(catchError(e => {
+            this.snack.error(e);
+            return of(false) as Observable<false>;
+        }));
+    }
+
+    getImageListRecent(count: number): Observable<DBImage[] | false> {
+        return this.http.get<DBImage[]>(`${this.baseUrl}/.netlify/functions/getImagesRecent?count=${count}`)
+        .pipe(catchError(e => {
+            this.snack.error(e);
+            return of(false) as Observable<false>;
+        }));
+    }
+    postImage(pngData: string): Observable<boolean> {
+        return this.http.post<boolean>(`${this.baseUrl}/.netlify/functions/postImage`, pngData)
         .pipe(catchError(e => {
             this.snack.error(e);
             return of(false) as Observable<false>;

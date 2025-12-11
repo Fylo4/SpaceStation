@@ -1,0 +1,127 @@
+// How wide are the grab regions for the corners?
+$corner-margin: 16px;
+// How deep into the div can you grab it?
+$grab-width: 7px;
+
+:host {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 100;
+}
+
+.throw-dialog {
+  position: fixed;
+  background-color: white;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+}
+
+.throw-dialog-header {
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  border-bottom: 1px solid black;
+  flex: 0 0 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: move;
+}
+
+.throw-dialog-header-button {
+  width: 16px;
+  height: 16px;
+  border: 1px solid black;
+  border-radius: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .minus {
+    width: 10px;
+    height: 3px;
+    background-color: black;
+    margin-top: 6px;
+    border-radius: 2px;
+  }
+}
+
+.grab-bottom,
+.grab-top {
+  cursor: ns-resize;
+  position: absolute;
+  // background-color: coral;
+  width: calc(100% - calc($corner-margin * 2));
+  height: $grab-width;
+  left: $corner-margin;
+}
+.grab-bottom {
+  bottom: 0;
+}
+.grab-top {
+  top: 0;
+}
+
+.grab-left,
+.grab-right {
+  cursor: ew-resize;
+  position: absolute;
+  // background-color: lightblue;
+  width: $grab-width;
+  height: calc(100% - calc($corner-margin * 2));
+  top: $corner-margin;
+}
+.grab-left {
+  left: 0;
+}
+.grab-right {
+  right: 0;
+}
+
+.grab-tl-top,
+.grab-tr-top,
+.grab-bl-bottom,
+.grab-br-bottom {
+  position: absolute;
+  width: $corner-margin;
+  height: $grab-width;
+  // background-color: lightpink;
+}
+
+.grab-tl-left,
+.grab-tr-right,
+.grab-bl-left,
+.grab-br-right {
+  position: absolute;
+  width: $grab-width;
+  height: $corner-margin;
+  // background-color: lightpink;
+}
+
+.grab-tl {
+  cursor: nwse-resize;
+  top: 0;
+  left: 0;
+}
+.grab-br {
+  cursor: nwse-resize;
+  bottom: 0;
+  right: 0;
+}
+.grab-tr {
+  cursor: nesw-resize;
+  top: 0;
+  right: 0;
+}
+.grab-bl {
+  cursor: nesw-resize;
+  bottom: 0;
+  left: 0;
+}
